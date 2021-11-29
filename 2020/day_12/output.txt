@@ -1,0 +1,1549 @@
+Compiling 1 file (.ex)
+%Day12.Ship{coord: {0, 0}, facing: :east}
+{"W", 5}
+%Day12.Ship{coord: {-5, 0}, facing: :east}
+{"F", 63}
+%Day12.Ship{coord: {58, 0}, facing: :east}
+{"S", 1}
+%Day12.Ship{coord: {58, -1}, facing: :east}
+{"L", 90}
+%Day12.Ship{coord: {58, -1}, facing: :north}
+{"F", 89}
+%Day12.Ship{coord: {58, 88}, facing: :north}
+{"W", 4}
+%Day12.Ship{coord: {54, 88}, facing: :north}
+{"F", 45}
+%Day12.Ship{coord: {54, 133}, facing: :north}
+{"W", 4}
+%Day12.Ship{coord: {50, 133}, facing: :north}
+{"F", 71}
+%Day12.Ship{coord: {50, 204}, facing: :north}
+{"R", 90}
+%Day12.Ship{coord: {50, 204}, facing: :east}
+{"S", 4}
+%Day12.Ship{coord: {50, 200}, facing: :east}
+{"F", 16}
+%Day12.Ship{coord: {66, 200}, facing: :east}
+{"E", 5}
+%Day12.Ship{coord: {71, 200}, facing: :east}
+{"R", 90}
+%Day12.Ship{coord: {71, 200}, facing: :south}
+{"S", 5}
+%Day12.Ship{coord: {71, 195}, facing: :south}
+{"F", 94}
+%Day12.Ship{coord: {71, 101}, facing: :south}
+{"S", 4}
+%Day12.Ship{coord: {71, 97}, facing: :south}
+{"W", 5}
+%Day12.Ship{coord: {66, 97}, facing: :south}
+{"F", 66}
+%Day12.Ship{coord: {66, 31}, facing: :south}
+{"N", 3}
+%Day12.Ship{coord: {66, 34}, facing: :south}
+{"W", 1}
+%Day12.Ship{coord: {65, 34}, facing: :south}
+{"R", 90}
+%Day12.Ship{coord: {65, 34}, facing: :west}
+{"F", 13}
+%Day12.Ship{coord: {52, 34}, facing: :west}
+{"R", 180}
+%Day12.Ship{coord: {52, 34}, facing: :east}
+{"W", 5}
+%Day12.Ship{coord: {47, 34}, facing: :east}
+{"F", 58}
+%Day12.Ship{coord: {105, 34}, facing: :east}
+{"E", 2}
+%Day12.Ship{coord: {107, 34}, facing: :east}
+{"R", 270}
+%Day12.Ship{coord: {107, 34}, facing: :north}
+{"F", 72}
+%Day12.Ship{coord: {107, 106}, facing: :north}
+{"L", 90}
+%Day12.Ship{coord: {107, 106}, facing: :east}
+{"S", 2}
+%Day12.Ship{coord: {107, 104}, facing: :east}
+{"L", 90}
+%Day12.Ship{coord: {107, 104}, facing: :north}
+{"N", 3}
+%Day12.Ship{coord: {107, 107}, facing: :north}
+{"W", 5}
+%Day12.Ship{coord: {102, 107}, facing: :north}
+{"F", 90}
+%Day12.Ship{coord: {102, 197}, facing: :north}
+{"S", 2}
+%Day12.Ship{coord: {102, 195}, facing: :north}
+{"F", 86}
+%Day12.Ship{coord: {102, 281}, facing: :north}
+{"L", 90}
+%Day12.Ship{coord: {102, 281}, facing: :east}
+{"F", 72}
+%Day12.Ship{coord: {174, 281}, facing: :east}
+{"N", 4}
+%Day12.Ship{coord: {174, 285}, facing: :east}
+{"W", 5}
+%Day12.Ship{coord: {169, 285}, facing: :east}
+{"N", 1}
+%Day12.Ship{coord: {169, 286}, facing: :east}
+{"W", 3}
+%Day12.Ship{coord: {166, 286}, facing: :east}
+{"N", 2}
+%Day12.Ship{coord: {166, 288}, facing: :east}
+{"E", 1}
+%Day12.Ship{coord: {167, 288}, facing: :east}
+{"S", 5}
+%Day12.Ship{coord: {167, 283}, facing: :east}
+{"R", 90}
+%Day12.Ship{coord: {167, 283}, facing: :south}
+{"F", 11}
+%Day12.Ship{coord: {167, 272}, facing: :south}
+{"W", 2}
+%Day12.Ship{coord: {165, 272}, facing: :south}
+{"R", 90}
+%Day12.Ship{coord: {165, 272}, facing: :west}
+{"F", 58}
+%Day12.Ship{coord: {107, 272}, facing: :west}
+{"S", 5}
+%Day12.Ship{coord: {107, 267}, facing: :west}
+{"F", 64}
+%Day12.Ship{coord: {43, 267}, facing: :west}
+{"R", 180}
+%Day12.Ship{coord: {43, 267}, facing: :east}
+{"E", 4}
+%Day12.Ship{coord: {47, 267}, facing: :east}
+{"N", 5}
+%Day12.Ship{coord: {47, 272}, facing: :east}
+{"F", 53}
+%Day12.Ship{coord: {100, 272}, facing: :east}
+{"R", 90}
+%Day12.Ship{coord: {100, 272}, facing: :south}
+{"W", 5}
+%Day12.Ship{coord: {95, 272}, facing: :south}
+{"N", 3}
+%Day12.Ship{coord: {95, 275}, facing: :south}
+{"F", 39}
+%Day12.Ship{coord: {95, 236}, facing: :south}
+{"S", 3}
+%Day12.Ship{coord: {95, 233}, facing: :south}
+{"R", 180}
+%Day12.Ship{coord: {95, 233}, facing: :north}
+{"N", 2}
+%Day12.Ship{coord: {95, 235}, facing: :north}
+{"E", 4}
+%Day12.Ship{coord: {99, 235}, facing: :north}
+{"L", 90}
+%Day12.Ship{coord: {99, 235}, facing: :east}
+{"W", 1}
+%Day12.Ship{coord: {98, 235}, facing: :east}
+{"R", 90}
+%Day12.Ship{coord: {98, 235}, facing: :south}
+{"S", 1}
+%Day12.Ship{coord: {98, 234}, facing: :south}
+{"R", 90}
+%Day12.Ship{coord: {98, 234}, facing: :west}
+{"F", 40}
+%Day12.Ship{coord: {58, 234}, facing: :west}
+{"E", 1}
+%Day12.Ship{coord: {59, 234}, facing: :west}
+{"F", 95}
+%Day12.Ship{coord: {-36, 234}, facing: :west}
+{"W", 2}
+%Day12.Ship{coord: {-38, 234}, facing: :west}
+{"R", 90}
+%Day12.Ship{coord: {-38, 234}, facing: :north}
+{"S", 5}
+%Day12.Ship{coord: {-38, 229}, facing: :north}
+{"F", 41}
+%Day12.Ship{coord: {-38, 270}, facing: :north}
+{"L", 270}
+%Day12.Ship{coord: {-38, 270}, facing: :east}
+{"N", 4}
+%Day12.Ship{coord: {-38, 274}, facing: :east}
+{"L", 90}
+%Day12.Ship{coord: {-38, 274}, facing: :north}
+{"E", 3}
+%Day12.Ship{coord: {-35, 274}, facing: :north}
+{"S", 2}
+%Day12.Ship{coord: {-35, 272}, facing: :north}
+{"E", 5}
+%Day12.Ship{coord: {-30, 272}, facing: :north}
+{"L", 180}
+%Day12.Ship{coord: {-30, 272}, facing: :south}
+{"F", 38}
+%Day12.Ship{coord: {-30, 234}, facing: :south}
+{"S", 5}
+%Day12.Ship{coord: {-30, 229}, facing: :south}
+{"E", 3}
+%Day12.Ship{coord: {-27, 229}, facing: :south}
+{"L", 90}
+%Day12.Ship{coord: {-27, 229}, facing: :east}
+{"W", 3}
+%Day12.Ship{coord: {-30, 229}, facing: :east}
+{"S", 4}
+%Day12.Ship{coord: {-30, 225}, facing: :east}
+{"L", 180}
+%Day12.Ship{coord: {-30, 225}, facing: :west}
+{"S", 5}
+%Day12.Ship{coord: {-30, 220}, facing: :west}
+{"F", 33}
+%Day12.Ship{coord: {-63, 220}, facing: :west}
+{"W", 2}
+%Day12.Ship{coord: {-65, 220}, facing: :west}
+{"R", 90}
+%Day12.Ship{coord: {-65, 220}, facing: :north}
+{"R", 90}
+%Day12.Ship{coord: {-65, 220}, facing: :east}
+{"F", 95}
+%Day12.Ship{coord: {30, 220}, facing: :east}
+{"E", 2}
+%Day12.Ship{coord: {32, 220}, facing: :east}
+{"F", 96}
+%Day12.Ship{coord: {128, 220}, facing: :east}
+{"R", 90}
+%Day12.Ship{coord: {128, 220}, facing: :south}
+{"F", 15}
+%Day12.Ship{coord: {128, 205}, facing: :south}
+{"L", 90}
+%Day12.Ship{coord: {128, 205}, facing: :east}
+{"N", 2}
+%Day12.Ship{coord: {128, 207}, facing: :east}
+{"R", 90}
+%Day12.Ship{coord: {128, 207}, facing: :south}
+{"N", 1}
+%Day12.Ship{coord: {128, 208}, facing: :south}
+{"F", 69}
+%Day12.Ship{coord: {128, 139}, facing: :south}
+{"R", 180}
+%Day12.Ship{coord: {128, 139}, facing: :north}
+{"N", 5}
+%Day12.Ship{coord: {128, 144}, facing: :north}
+{"L", 90}
+%Day12.Ship{coord: {128, 144}, facing: :east}
+{"F", 53}
+%Day12.Ship{coord: {181, 144}, facing: :east}
+{"L", 180}
+%Day12.Ship{coord: {181, 144}, facing: :west}
+{"W", 1}
+%Day12.Ship{coord: {180, 144}, facing: :west}
+{"L", 90}
+%Day12.Ship{coord: {180, 144}, facing: :south}
+{"S", 1}
+%Day12.Ship{coord: {180, 143}, facing: :south}
+{"L", 180}
+%Day12.Ship{coord: {180, 143}, facing: :north}
+{"S", 2}
+%Day12.Ship{coord: {180, 141}, facing: :north}
+{"N", 4}
+%Day12.Ship{coord: {180, 145}, facing: :north}
+{"N", 2}
+%Day12.Ship{coord: {180, 147}, facing: :north}
+{"F", 51}
+%Day12.Ship{coord: {180, 198}, facing: :north}
+{"W", 1}
+%Day12.Ship{coord: {179, 198}, facing: :north}
+{"F", 17}
+%Day12.Ship{coord: {179, 215}, facing: :north}
+{"W", 1}
+%Day12.Ship{coord: {178, 215}, facing: :north}
+{"R", 180}
+%Day12.Ship{coord: {178, 215}, facing: :south}
+{"W", 5}
+%Day12.Ship{coord: {173, 215}, facing: :south}
+{"S", 4}
+%Day12.Ship{coord: {173, 211}, facing: :south}
+{"R", 180}
+%Day12.Ship{coord: {173, 211}, facing: :north}
+{"F", 87}
+%Day12.Ship{coord: {173, 298}, facing: :north}
+{"N", 2}
+%Day12.Ship{coord: {173, 300}, facing: :north}
+{"W", 3}
+%Day12.Ship{coord: {170, 300}, facing: :north}
+{"F", 26}
+%Day12.Ship{coord: {170, 326}, facing: :north}
+{"L", 90}
+%Day12.Ship{coord: {170, 326}, facing: :east}
+{"E", 4}
+%Day12.Ship{coord: {174, 326}, facing: :east}
+{"N", 1}
+%Day12.Ship{coord: {174, 327}, facing: :east}
+{"F", 62}
+%Day12.Ship{coord: {236, 327}, facing: :east}
+{"N", 5}
+%Day12.Ship{coord: {236, 332}, facing: :east}
+{"R", 90}
+%Day12.Ship{coord: {236, 332}, facing: :south}
+{"F", 53}
+%Day12.Ship{coord: {236, 279}, facing: :south}
+{"N", 4}
+%Day12.Ship{coord: {236, 283}, facing: :south}
+{"R", 90}
+%Day12.Ship{coord: {236, 283}, facing: :west}
+{"N", 3}
+%Day12.Ship{coord: {236, 286}, facing: :west}
+{"L", 180}
+%Day12.Ship{coord: {236, 286}, facing: :east}
+{"W", 3}
+%Day12.Ship{coord: {233, 286}, facing: :east}
+{"N", 4}
+%Day12.Ship{coord: {233, 290}, facing: :east}
+{"R", 90}
+%Day12.Ship{coord: {233, 290}, facing: :south}
+{"S", 1}
+%Day12.Ship{coord: {233, 289}, facing: :south}
+{"W", 2}
+%Day12.Ship{coord: {231, 289}, facing: :south}
+{"L", 90}
+%Day12.Ship{coord: {231, 289}, facing: :east}
+{"W", 2}
+%Day12.Ship{coord: {229, 289}, facing: :east}
+{"S", 2}
+%Day12.Ship{coord: {229, 287}, facing: :east}
+{"R", 90}
+%Day12.Ship{coord: {229, 287}, facing: :south}
+{"W", 1}
+%Day12.Ship{coord: {228, 287}, facing: :south}
+{"F", 50}
+%Day12.Ship{coord: {228, 237}, facing: :south}
+{"R", 180}
+%Day12.Ship{coord: {228, 237}, facing: :north}
+{"F", 84}
+%Day12.Ship{coord: {228, 321}, facing: :north}
+{"L", 90}
+%Day12.Ship{coord: {228, 321}, facing: :east}
+{"F", 12}
+%Day12.Ship{coord: {240, 321}, facing: :east}
+{"R", 180}
+%Day12.Ship{coord: {240, 321}, facing: :west}
+{"F", 26}
+%Day12.Ship{coord: {214, 321}, facing: :west}
+{"W", 5}
+%Day12.Ship{coord: {209, 321}, facing: :west}
+{"N", 3}
+%Day12.Ship{coord: {209, 324}, facing: :west}
+{"R", 90}
+%Day12.Ship{coord: {209, 324}, facing: :north}
+{"S", 1}
+%Day12.Ship{coord: {209, 323}, facing: :north}
+{"F", 3}
+%Day12.Ship{coord: {209, 326}, facing: :north}
+{"N", 4}
+%Day12.Ship{coord: {209, 330}, facing: :north}
+{"E", 3}
+%Day12.Ship{coord: {212, 330}, facing: :north}
+{"R", 180}
+%Day12.Ship{coord: {212, 330}, facing: :south}
+{"W", 1}
+%Day12.Ship{coord: {211, 330}, facing: :south}
+{"N", 5}
+%Day12.Ship{coord: {211, 335}, facing: :south}
+{"W", 1}
+%Day12.Ship{coord: {210, 335}, facing: :south}
+{"W", 4}
+%Day12.Ship{coord: {206, 335}, facing: :south}
+{"F", 89}
+%Day12.Ship{coord: {206, 246}, facing: :south}
+{"L", 270}
+%Day12.Ship{coord: {206, 246}, facing: :west}
+{"W", 4}
+%Day12.Ship{coord: {202, 246}, facing: :west}
+{"L", 180}
+%Day12.Ship{coord: {202, 246}, facing: :east}
+{"N", 4}
+%Day12.Ship{coord: {202, 250}, facing: :east}
+{"F", 83}
+%Day12.Ship{coord: {285, 250}, facing: :east}
+{"W", 2}
+%Day12.Ship{coord: {283, 250}, facing: :east}
+{"F", 45}
+%Day12.Ship{coord: {328, 250}, facing: :east}
+{"L", 90}
+%Day12.Ship{coord: {328, 250}, facing: :north}
+{"F", 79}
+%Day12.Ship{coord: {328, 329}, facing: :north}
+{"W", 2}
+%Day12.Ship{coord: {326, 329}, facing: :north}
+{"R", 90}
+%Day12.Ship{coord: {326, 329}, facing: :east}
+{"W", 1}
+%Day12.Ship{coord: {325, 329}, facing: :east}
+{"N", 4}
+%Day12.Ship{coord: {325, 333}, facing: :east}
+{"L", 90}
+%Day12.Ship{coord: {325, 333}, facing: :north}
+{"W", 1}
+%Day12.Ship{coord: {324, 333}, facing: :north}
+{"N", 1}
+%Day12.Ship{coord: {324, 334}, facing: :north}
+{"F", 56}
+%Day12.Ship{coord: {324, 390}, facing: :north}
+{"N", 5}
+%Day12.Ship{coord: {324, 395}, facing: :north}
+{"W", 2}
+%Day12.Ship{coord: {322, 395}, facing: :north}
+{"N", 3}
+%Day12.Ship{coord: {322, 398}, facing: :north}
+{"L", 90}
+%Day12.Ship{coord: {322, 398}, facing: :east}
+{"W", 3}
+%Day12.Ship{coord: {319, 398}, facing: :east}
+{"N", 5}
+%Day12.Ship{coord: {319, 403}, facing: :east}
+{"F", 49}
+%Day12.Ship{coord: {368, 403}, facing: :east}
+{"F", 4}
+%Day12.Ship{coord: {372, 403}, facing: :east}
+{"S", 2}
+%Day12.Ship{coord: {372, 401}, facing: :east}
+{"F", 93}
+%Day12.Ship{coord: {465, 401}, facing: :east}
+{"N", 1}
+%Day12.Ship{coord: {465, 402}, facing: :east}
+{"R", 90}
+%Day12.Ship{coord: {465, 402}, facing: :south}
+{"N", 3}
+%Day12.Ship{coord: {465, 405}, facing: :south}
+{"W", 3}
+%Day12.Ship{coord: {462, 405}, facing: :south}
+{"F", 29}
+%Day12.Ship{coord: {462, 376}, facing: :south}
+{"S", 1}
+%Day12.Ship{coord: {462, 375}, facing: :south}
+{"N", 5}
+%Day12.Ship{coord: {462, 380}, facing: :south}
+{"F", 54}
+%Day12.Ship{coord: {462, 326}, facing: :south}
+{"N", 5}
+%Day12.Ship{coord: {462, 331}, facing: :south}
+{"R", 180}
+%Day12.Ship{coord: {462, 331}, facing: :north}
+{"F", 92}
+%Day12.Ship{coord: {462, 423}, facing: :north}
+{"E", 1}
+%Day12.Ship{coord: {463, 423}, facing: :north}
+{"L", 90}
+%Day12.Ship{coord: {463, 423}, facing: :east}
+{"W", 3}
+%Day12.Ship{coord: {460, 423}, facing: :east}
+{"L", 270}
+%Day12.Ship{coord: {460, 423}, facing: :south}
+{"E", 4}
+%Day12.Ship{coord: {464, 423}, facing: :south}
+{"L", 180}
+%Day12.Ship{coord: {464, 423}, facing: :north}
+{"S", 5}
+%Day12.Ship{coord: {464, 418}, facing: :north}
+{"E", 2}
+%Day12.Ship{coord: {466, 418}, facing: :north}
+{"F", 84}
+%Day12.Ship{coord: {466, 502}, facing: :north}
+{"L", 180}
+%Day12.Ship{coord: {466, 502}, facing: :south}
+{"N", 4}
+%Day12.Ship{coord: {466, 506}, facing: :south}
+{"F", 14}
+%Day12.Ship{coord: {466, 492}, facing: :south}
+{"F", 60}
+%Day12.Ship{coord: {466, 432}, facing: :south}
+{"N", 2}
+%Day12.Ship{coord: {466, 434}, facing: :south}
+{"F", 98}
+%Day12.Ship{coord: {466, 336}, facing: :south}
+{"L", 270}
+%Day12.Ship{coord: {466, 336}, facing: :west}
+{"F", 61}
+%Day12.Ship{coord: {405, 336}, facing: :west}
+{"N", 3}
+%Day12.Ship{coord: {405, 339}, facing: :west}
+{"F", 39}
+%Day12.Ship{coord: {366, 339}, facing: :west}
+{"E", 5}
+%Day12.Ship{coord: {371, 339}, facing: :west}
+{"L", 180}
+%Day12.Ship{coord: {371, 339}, facing: :east}
+{"W", 4}
+%Day12.Ship{coord: {367, 339}, facing: :east}
+{"N", 2}
+%Day12.Ship{coord: {367, 341}, facing: :east}
+{"R", 90}
+%Day12.Ship{coord: {367, 341}, facing: :south}
+{"F", 71}
+%Day12.Ship{coord: {367, 270}, facing: :south}
+{"S", 4}
+%Day12.Ship{coord: {367, 266}, facing: :south}
+{"L", 90}
+%Day12.Ship{coord: {367, 266}, facing: :east}
+{"L", 90}
+%Day12.Ship{coord: {367, 266}, facing: :north}
+{"S", 1}
+%Day12.Ship{coord: {367, 265}, facing: :north}
+{"F", 15}
+%Day12.Ship{coord: {367, 280}, facing: :north}
+{"L", 90}
+%Day12.Ship{coord: {367, 280}, facing: :east}
+{"E", 2}
+%Day12.Ship{coord: {369, 280}, facing: :east}
+{"F", 73}
+%Day12.Ship{coord: {442, 280}, facing: :east}
+{"N", 4}
+%Day12.Ship{coord: {442, 284}, facing: :east}
+{"F", 92}
+%Day12.Ship{coord: {534, 284}, facing: :east}
+{"S", 5}
+%Day12.Ship{coord: {534, 279}, facing: :east}
+{"W", 2}
+%Day12.Ship{coord: {532, 279}, facing: :east}
+{"N", 4}
+%Day12.Ship{coord: {532, 283}, facing: :east}
+{"R", 90}
+%Day12.Ship{coord: {532, 283}, facing: :south}
+{"S", 1}
+%Day12.Ship{coord: {532, 282}, facing: :south}
+{"F", 29}
+%Day12.Ship{coord: {532, 253}, facing: :south}
+{"E", 4}
+%Day12.Ship{coord: {536, 253}, facing: :south}
+{"S", 4}
+%Day12.Ship{coord: {536, 249}, facing: :south}
+{"F", 9}
+%Day12.Ship{coord: {536, 240}, facing: :south}
+{"E", 4}
+%Day12.Ship{coord: {540, 240}, facing: :south}
+{"F", 10}
+%Day12.Ship{coord: {540, 230}, facing: :south}
+{"W", 3}
+%Day12.Ship{coord: {537, 230}, facing: :south}
+{"S", 1}
+%Day12.Ship{coord: {537, 229}, facing: :south}
+{"F", 55}
+%Day12.Ship{coord: {537, 174}, facing: :south}
+{"S", 5}
+%Day12.Ship{coord: {537, 169}, facing: :south}
+{"F", 88}
+%Day12.Ship{coord: {537, 81}, facing: :south}
+{"F", 94}
+%Day12.Ship{coord: {537, -13}, facing: :south}
+{"L", 180}
+%Day12.Ship{coord: {537, -13}, facing: :north}
+{"F", 99}
+%Day12.Ship{coord: {537, 86}, facing: :north}
+{"N", 2}
+%Day12.Ship{coord: {537, 88}, facing: :north}
+{"W", 4}
+%Day12.Ship{coord: {533, 88}, facing: :north}
+{"F", 87}
+%Day12.Ship{coord: {533, 175}, facing: :north}
+{"E", 5}
+%Day12.Ship{coord: {538, 175}, facing: :north}
+{"S", 1}
+%Day12.Ship{coord: {538, 174}, facing: :north}
+{"L", 180}
+%Day12.Ship{coord: {538, 174}, facing: :south}
+{"S", 1}
+%Day12.Ship{coord: {538, 173}, facing: :south}
+{"L", 90}
+%Day12.Ship{coord: {538, 173}, facing: :east}
+{"W", 3}
+%Day12.Ship{coord: {535, 173}, facing: :east}
+{"N", 1}
+%Day12.Ship{coord: {535, 174}, facing: :east}
+{"W", 5}
+%Day12.Ship{coord: {530, 174}, facing: :east}
+{"F", 50}
+%Day12.Ship{coord: {580, 174}, facing: :east}
+{"W", 2}
+%Day12.Ship{coord: {578, 174}, facing: :east}
+{"S", 2}
+%Day12.Ship{coord: {578, 172}, facing: :east}
+{"F", 61}
+%Day12.Ship{coord: {639, 172}, facing: :east}
+{"N", 1}
+%Day12.Ship{coord: {639, 173}, facing: :east}
+{"W", 3}
+%Day12.Ship{coord: {636, 173}, facing: :east}
+{"R", 90}
+%Day12.Ship{coord: {636, 173}, facing: :south}
+{"F", 7}
+%Day12.Ship{coord: {636, 166}, facing: :south}
+{"W", 1}
+%Day12.Ship{coord: {635, 166}, facing: :south}
+{"L", 90}
+%Day12.Ship{coord: {635, 166}, facing: :east}
+{"E", 2}
+%Day12.Ship{coord: {637, 166}, facing: :east}
+{"R", 90}
+%Day12.Ship{coord: {637, 166}, facing: :south}
+{"L", 90}
+%Day12.Ship{coord: {637, 166}, facing: :east}
+{"W", 5}
+%Day12.Ship{coord: {632, 166}, facing: :east}
+{"S", 4}
+%Day12.Ship{coord: {632, 162}, facing: :east}
+{"R", 90}
+%Day12.Ship{coord: {632, 162}, facing: :south}
+{"S", 1}
+%Day12.Ship{coord: {632, 161}, facing: :south}
+{"F", 70}
+%Day12.Ship{coord: {632, 91}, facing: :south}
+{"W", 3}
+%Day12.Ship{coord: {629, 91}, facing: :south}
+{"F", 72}
+%Day12.Ship{coord: {629, 19}, facing: :south}
+{"S", 5}
+%Day12.Ship{coord: {629, 14}, facing: :south}
+{"L", 90}
+%Day12.Ship{coord: {629, 14}, facing: :east}
+{"E", 5}
+%Day12.Ship{coord: {634, 14}, facing: :east}
+{"F", 87}
+%Day12.Ship{coord: {721, 14}, facing: :east}
+{"L", 90}
+%Day12.Ship{coord: {721, 14}, facing: :north}
+{"F", 64}
+%Day12.Ship{coord: {721, 78}, facing: :north}
+{"S", 2}
+%Day12.Ship{coord: {721, 76}, facing: :north}
+{"F", 35}
+%Day12.Ship{coord: {721, 111}, facing: :north}
+{"L", 90}
+%Day12.Ship{coord: {721, 111}, facing: :east}
+{"N", 5}
+%Day12.Ship{coord: {721, 116}, facing: :east}
+{"R", 90}
+%Day12.Ship{coord: {721, 116}, facing: :south}
+{"N", 5}
+%Day12.Ship{coord: {721, 121}, facing: :south}
+{"W", 4}
+%Day12.Ship{coord: {717, 121}, facing: :south}
+{"L", 90}
+%Day12.Ship{coord: {717, 121}, facing: :east}
+{"F", 41}
+%Day12.Ship{coord: {758, 121}, facing: :east}
+{"L", 90}
+%Day12.Ship{coord: {758, 121}, facing: :north}
+{"E", 4}
+%Day12.Ship{coord: {762, 121}, facing: :north}
+{"N", 2}
+%Day12.Ship{coord: {762, 123}, facing: :north}
+{"F", 84}
+%Day12.Ship{coord: {762, 207}, facing: :north}
+{"R", 90}
+%Day12.Ship{coord: {762, 207}, facing: :east}
+{"F", 67}
+%Day12.Ship{coord: {829, 207}, facing: :east}
+{"S", 4}
+%Day12.Ship{coord: {829, 203}, facing: :east}
+{"E", 3}
+%Day12.Ship{coord: {832, 203}, facing: :east}
+{"F", 70}
+%Day12.Ship{coord: {902, 203}, facing: :east}
+{"E", 5}
+%Day12.Ship{coord: {907, 203}, facing: :east}
+{"L", 90}
+%Day12.Ship{coord: {907, 203}, facing: :north}
+{"F", 98}
+%Day12.Ship{coord: {907, 301}, facing: :north}
+{"N", 4}
+%Day12.Ship{coord: {907, 305}, facing: :north}
+{"W", 2}
+%Day12.Ship{coord: {905, 305}, facing: :north}
+{"L", 90}
+%Day12.Ship{coord: {905, 305}, facing: :east}
+{"E", 2}
+%Day12.Ship{coord: {907, 305}, facing: :east}
+{"F", 31}
+%Day12.Ship{coord: {938, 305}, facing: :east}
+{"N", 3}
+%Day12.Ship{coord: {938, 308}, facing: :east}
+{"W", 2}
+%Day12.Ship{coord: {936, 308}, facing: :east}
+{"F", 80}
+%Day12.Ship{coord: {1016, 308}, facing: :east}
+{"S", 5}
+%Day12.Ship{coord: {1016, 303}, facing: :east}
+{"F", 43}
+%Day12.Ship{coord: {1059, 303}, facing: :east}
+{"S", 1}
+%Day12.Ship{coord: {1059, 302}, facing: :east}
+{"E", 2}
+%Day12.Ship{coord: {1061, 302}, facing: :east}
+{"L", 90}
+%Day12.Ship{coord: {1061, 302}, facing: :north}
+{"F", 61}
+%Day12.Ship{coord: {1061, 363}, facing: :north}
+{"E", 2}
+%Day12.Ship{coord: {1063, 363}, facing: :north}
+{"L", 90}
+%Day12.Ship{coord: {1063, 363}, facing: :east}
+{"F", 56}
+%Day12.Ship{coord: {1119, 363}, facing: :east}
+{"L", 90}
+%Day12.Ship{coord: {1119, 363}, facing: :north}
+{"N", 4}
+%Day12.Ship{coord: {1119, 367}, facing: :north}
+{"W", 5}
+%Day12.Ship{coord: {1114, 367}, facing: :north}
+{"L", 180}
+%Day12.Ship{coord: {1114, 367}, facing: :south}
+{"W", 2}
+%Day12.Ship{coord: {1112, 367}, facing: :south}
+{"F", 19}
+%Day12.Ship{coord: {1112, 348}, facing: :south}
+{"N", 4}
+%Day12.Ship{coord: {1112, 352}, facing: :south}
+{"F", 90}
+%Day12.Ship{coord: {1112, 262}, facing: :south}
+{"N", 4}
+%Day12.Ship{coord: {1112, 266}, facing: :south}
+{"W", 2}
+%Day12.Ship{coord: {1110, 266}, facing: :south}
+{"R", 90}
+%Day12.Ship{coord: {1110, 266}, facing: :west}
+{"F", 27}
+%Day12.Ship{coord: {1083, 266}, facing: :west}
+{"S", 5}
+%Day12.Ship{coord: {1083, 261}, facing: :west}
+{"F", 3}
+%Day12.Ship{coord: {1080, 261}, facing: :west}
+{"N", 2}
+%Day12.Ship{coord: {1080, 263}, facing: :west}
+{"R", 90}
+%Day12.Ship{coord: {1080, 263}, facing: :north}
+{"W", 1}
+%Day12.Ship{coord: {1079, 263}, facing: :north}
+{"S", 1}
+%Day12.Ship{coord: {1079, 262}, facing: :north}
+{"F", 48}
+%Day12.Ship{coord: {1079, 310}, facing: :north}
+{"S", 3}
+%Day12.Ship{coord: {1079, 307}, facing: :north}
+{"F", 61}
+%Day12.Ship{coord: {1079, 368}, facing: :north}
+{"R", 270}
+%Day12.Ship{coord: {1079, 368}, facing: :east}
+{"F", 76}
+%Day12.Ship{coord: {1155, 368}, facing: :east}
+{"S", 4}
+%Day12.Ship{coord: {1155, 364}, facing: :east}
+{"L", 180}
+%Day12.Ship{coord: {1155, 364}, facing: :west}
+{"N", 4}
+%Day12.Ship{coord: {1155, 368}, facing: :west}
+{"W", 1}
+%Day12.Ship{coord: {1154, 368}, facing: :west}
+{"F", 34}
+%Day12.Ship{coord: {1120, 368}, facing: :west}
+{"E", 1}
+%Day12.Ship{coord: {1121, 368}, facing: :west}
+{"L", 90}
+%Day12.Ship{coord: {1121, 368}, facing: :south}
+{"F", 62}
+%Day12.Ship{coord: {1121, 306}, facing: :south}
+{"W", 1}
+%Day12.Ship{coord: {1120, 306}, facing: :south}
+{"F", 37}
+%Day12.Ship{coord: {1120, 269}, facing: :south}
+{"S", 1}
+%Day12.Ship{coord: {1120, 268}, facing: :south}
+{"L", 90}
+%Day12.Ship{coord: {1120, 268}, facing: :east}
+{"N", 5}
+%Day12.Ship{coord: {1120, 273}, facing: :east}
+{"F", 25}
+%Day12.Ship{coord: {1145, 273}, facing: :east}
+{"N", 4}
+%Day12.Ship{coord: {1145, 277}, facing: :east}
+{"E", 1}
+%Day12.Ship{coord: {1146, 277}, facing: :east}
+{"L", 90}
+%Day12.Ship{coord: {1146, 277}, facing: :north}
+{"F", 98}
+%Day12.Ship{coord: {1146, 375}, facing: :north}
+{"N", 4}
+%Day12.Ship{coord: {1146, 379}, facing: :north}
+{"E", 5}
+%Day12.Ship{coord: {1151, 379}, facing: :north}
+{"R", 90}
+%Day12.Ship{coord: {1151, 379}, facing: :east}
+{"F", 19}
+%Day12.Ship{coord: {1170, 379}, facing: :east}
+{"R", 180}
+%Day12.Ship{coord: {1170, 379}, facing: :west}
+{"E", 4}
+%Day12.Ship{coord: {1174, 379}, facing: :west}
+{"F", 74}
+%Day12.Ship{coord: {1100, 379}, facing: :west}
+{"E", 4}
+%Day12.Ship{coord: {1104, 379}, facing: :west}
+{"N", 3}
+%Day12.Ship{coord: {1104, 382}, facing: :west}
+{"W", 1}
+%Day12.Ship{coord: {1103, 382}, facing: :west}
+{"F", 86}
+%Day12.Ship{coord: {1017, 382}, facing: :west}
+{"W", 5}
+%Day12.Ship{coord: {1012, 382}, facing: :west}
+{"F", 85}
+%Day12.Ship{coord: {927, 382}, facing: :west}
+{"E", 1}
+%Day12.Ship{coord: {928, 382}, facing: :west}
+{"E", 2}
+%Day12.Ship{coord: {930, 382}, facing: :west}
+{"S", 2}
+%Day12.Ship{coord: {930, 380}, facing: :west}
+{"F", 79}
+%Day12.Ship{coord: {851, 380}, facing: :west}
+{"R", 90}
+%Day12.Ship{coord: {851, 380}, facing: :north}
+{"W", 5}
+%Day12.Ship{coord: {846, 380}, facing: :north}
+{"S", 3}
+%Day12.Ship{coord: {846, 377}, facing: :north}
+{"L", 90}
+%Day12.Ship{coord: {846, 377}, facing: :east}
+{"S", 2}
+%Day12.Ship{coord: {846, 375}, facing: :east}
+{"F", 43}
+%Day12.Ship{coord: {889, 375}, facing: :east}
+{"L", 180}
+%Day12.Ship{coord: {889, 375}, facing: :west}
+{"E", 4}
+%Day12.Ship{coord: {893, 375}, facing: :west}
+{"F", 64}
+%Day12.Ship{coord: {829, 375}, facing: :west}
+{"L", 180}
+%Day12.Ship{coord: {829, 375}, facing: :east}
+{"N", 1}
+%Day12.Ship{coord: {829, 376}, facing: :east}
+{"W", 1}
+%Day12.Ship{coord: {828, 376}, facing: :east}
+{"S", 4}
+%Day12.Ship{coord: {828, 372}, facing: :east}
+{"E", 3}
+%Day12.Ship{coord: {831, 372}, facing: :east}
+{"L", 180}
+%Day12.Ship{coord: {831, 372}, facing: :west}
+{"N", 2}
+%Day12.Ship{coord: {831, 374}, facing: :west}
+{"W", 4}
+%Day12.Ship{coord: {827, 374}, facing: :west}
+{"R", 90}
+%Day12.Ship{coord: {827, 374}, facing: :north}
+{"F", 63}
+%Day12.Ship{coord: {827, 437}, facing: :north}
+{"L", 90}
+%Day12.Ship{coord: {827, 437}, facing: :east}
+{"S", 5}
+%Day12.Ship{coord: {827, 432}, facing: :east}
+{"W", 5}
+%Day12.Ship{coord: {822, 432}, facing: :east}
+{"F", 27}
+%Day12.Ship{coord: {849, 432}, facing: :east}
+{"L", 90}
+%Day12.Ship{coord: {849, 432}, facing: :north}
+{"F", 38}
+%Day12.Ship{coord: {849, 470}, facing: :north}
+{"L", 90}
+%Day12.Ship{coord: {849, 470}, facing: :east}
+{"W", 1}
+%Day12.Ship{coord: {848, 470}, facing: :east}
+{"F", 18}
+%Day12.Ship{coord: {866, 470}, facing: :east}
+{"N", 5}
+%Day12.Ship{coord: {866, 475}, facing: :east}
+{"S", 2}
+%Day12.Ship{coord: {866, 473}, facing: :east}
+{"E", 5}
+%Day12.Ship{coord: {871, 473}, facing: :east}
+{"F", 54}
+%Day12.Ship{coord: {925, 473}, facing: :east}
+{"E", 2}
+%Day12.Ship{coord: {927, 473}, facing: :east}
+{"F", 68}
+%Day12.Ship{coord: {995, 473}, facing: :east}
+{"F", 40}
+%Day12.Ship{coord: {1035, 473}, facing: :east}
+{"S", 5}
+%Day12.Ship{coord: {1035, 468}, facing: :east}
+{"F", 7}
+%Day12.Ship{coord: {1042, 468}, facing: :east}
+{"N", 3}
+%Day12.Ship{coord: {1042, 471}, facing: :east}
+{"E", 1}
+%Day12.Ship{coord: {1043, 471}, facing: :east}
+{"L", 90}
+%Day12.Ship{coord: {1043, 471}, facing: :north}
+{"N", 2}
+%Day12.Ship{coord: {1043, 473}, facing: :north}
+{"W", 3}
+%Day12.Ship{coord: {1040, 473}, facing: :north}
+{"F", 22}
+%Day12.Ship{coord: {1040, 495}, facing: :north}
+{"L", 90}
+%Day12.Ship{coord: {1040, 495}, facing: :east}
+{"W", 3}
+%Day12.Ship{coord: {1037, 495}, facing: :east}
+{"R", 90}
+%Day12.Ship{coord: {1037, 495}, facing: :south}
+{"E", 2}
+%Day12.Ship{coord: {1039, 495}, facing: :south}
+{"R", 180}
+%Day12.Ship{coord: {1039, 495}, facing: :north}
+{"N", 1}
+%Day12.Ship{coord: {1039, 496}, facing: :north}
+{"L", 90}
+%Day12.Ship{coord: {1039, 496}, facing: :east}
+{"F", 36}
+%Day12.Ship{coord: {1075, 496}, facing: :east}
+{"E", 5}
+%Day12.Ship{coord: {1080, 496}, facing: :east}
+{"L", 90}
+%Day12.Ship{coord: {1080, 496}, facing: :north}
+{"E", 4}
+%Day12.Ship{coord: {1084, 496}, facing: :north}
+{"N", 5}
+%Day12.Ship{coord: {1084, 501}, facing: :north}
+{"F", 62}
+%Day12.Ship{coord: {1084, 563}, facing: :north}
+{"R", 90}
+%Day12.Ship{coord: {1084, 563}, facing: :east}
+{"E", 4}
+%Day12.Ship{coord: {1088, 563}, facing: :east}
+{"R", 180}
+%Day12.Ship{coord: {1088, 563}, facing: :west}
+{"F", 70}
+%Day12.Ship{coord: {1018, 563}, facing: :west}
+{"N", 4}
+%Day12.Ship{coord: {1018, 567}, facing: :west}
+{"F", 56}
+%Day12.Ship{coord: {962, 567}, facing: :west}
+{"L", 90}
+%Day12.Ship{coord: {962, 567}, facing: :south}
+{"F", 96}
+%Day12.Ship{coord: {962, 471}, facing: :south}
+{"L", 90}
+%Day12.Ship{coord: {962, 471}, facing: :east}
+{"N", 4}
+%Day12.Ship{coord: {962, 475}, facing: :east}
+{"F", 70}
+%Day12.Ship{coord: {1032, 475}, facing: :east}
+{"W", 3}
+%Day12.Ship{coord: {1029, 475}, facing: :east}
+{"L", 90}
+%Day12.Ship{coord: {1029, 475}, facing: :north}
+{"F", 32}
+%Day12.Ship{coord: {1029, 507}, facing: :north}
+{"L", 90}
+%Day12.Ship{coord: {1029, 507}, facing: :east}
+{"W", 2}
+%Day12.Ship{coord: {1027, 507}, facing: :east}
+{"F", 36}
+%Day12.Ship{coord: {1063, 507}, facing: :east}
+{"S", 1}
+%Day12.Ship{coord: {1063, 506}, facing: :east}
+{"F", 85}
+%Day12.Ship{coord: {1148, 506}, facing: :east}
+{"R", 90}
+%Day12.Ship{coord: {1148, 506}, facing: :south}
+{"S", 3}
+%Day12.Ship{coord: {1148, 503}, facing: :south}
+{"R", 90}
+%Day12.Ship{coord: {1148, 503}, facing: :west}
+{"F", 77}
+%Day12.Ship{coord: {1071, 503}, facing: :west}
+{"S", 2}
+%Day12.Ship{coord: {1071, 501}, facing: :west}
+{"W", 3}
+%Day12.Ship{coord: {1068, 501}, facing: :west}
+{"R", 90}
+%Day12.Ship{coord: {1068, 501}, facing: :north}
+{"N", 2}
+%Day12.Ship{coord: {1068, 503}, facing: :north}
+{"W", 5}
+%Day12.Ship{coord: {1063, 503}, facing: :north}
+{"L", 180}
+%Day12.Ship{coord: {1063, 503}, facing: :south}
+{"F", 25}
+%Day12.Ship{coord: {1063, 478}, facing: :south}
+{"R", 180}
+%Day12.Ship{coord: {1063, 478}, facing: :north}
+{"S", 2}
+%Day12.Ship{coord: {1063, 476}, facing: :north}
+{"E", 1}
+%Day12.Ship{coord: {1064, 476}, facing: :north}
+{"L", 180}
+%Day12.Ship{coord: {1064, 476}, facing: :south}
+{"E", 2}
+%Day12.Ship{coord: {1066, 476}, facing: :south}
+{"S", 1}
+%Day12.Ship{coord: {1066, 475}, facing: :south}
+{"F", 59}
+%Day12.Ship{coord: {1066, 416}, facing: :south}
+{"N", 1}
+%Day12.Ship{coord: {1066, 417}, facing: :south}
+{"F", 57}
+%Day12.Ship{coord: {1066, 360}, facing: :south}
+{"R", 90}
+%Day12.Ship{coord: {1066, 360}, facing: :west}
+{"W", 5}
+%Day12.Ship{coord: {1061, 360}, facing: :west}
+{"L", 90}
+%Day12.Ship{coord: {1061, 360}, facing: :south}
+{"S", 1}
+%Day12.Ship{coord: {1061, 359}, facing: :south}
+{"R", 90}
+%Day12.Ship{coord: {1061, 359}, facing: :west}
+{"W", 1}
+%Day12.Ship{coord: {1060, 359}, facing: :west}
+{"R", 180}
+%Day12.Ship{coord: {1060, 359}, facing: :east}
+{"W", 1}
+%Day12.Ship{coord: {1059, 359}, facing: :east}
+{"N", 2}
+%Day12.Ship{coord: {1059, 361}, facing: :east}
+{"W", 4}
+%Day12.Ship{coord: {1055, 361}, facing: :east}
+{"F", 8}
+%Day12.Ship{coord: {1063, 361}, facing: :east}
+{"S", 2}
+%Day12.Ship{coord: {1063, 359}, facing: :east}
+{"F", 40}
+%Day12.Ship{coord: {1103, 359}, facing: :east}
+{"R", 90}
+%Day12.Ship{coord: {1103, 359}, facing: :south}
+{"F", 43}
+%Day12.Ship{coord: {1103, 316}, facing: :south}
+{"S", 3}
+%Day12.Ship{coord: {1103, 313}, facing: :south}
+{"S", 1}
+%Day12.Ship{coord: {1103, 312}, facing: :south}
+{"W", 2}
+%Day12.Ship{coord: {1101, 312}, facing: :south}
+{"F", 82}
+%Day12.Ship{coord: {1101, 230}, facing: :south}
+{"W", 1}
+%Day12.Ship{coord: {1100, 230}, facing: :south}
+{"S", 4}
+%Day12.Ship{coord: {1100, 226}, facing: :south}
+{"L", 180}
+%Day12.Ship{coord: {1100, 226}, facing: :north}
+{"F", 51}
+%Day12.Ship{coord: {1100, 277}, facing: :north}
+{"L", 180}
+%Day12.Ship{coord: {1100, 277}, facing: :south}
+{"N", 2}
+%Day12.Ship{coord: {1100, 279}, facing: :south}
+{"F", 83}
+%Day12.Ship{coord: {1100, 196}, facing: :south}
+{"L", 90}
+%Day12.Ship{coord: {1100, 196}, facing: :east}
+{"E", 1}
+%Day12.Ship{coord: {1101, 196}, facing: :east}
+{"N", 5}
+%Day12.Ship{coord: {1101, 201}, facing: :east}
+{"F", 11}
+%Day12.Ship{coord: {1112, 201}, facing: :east}
+{"W", 1}
+%Day12.Ship{coord: {1111, 201}, facing: :east}
+{"F", 2}
+%Day12.Ship{coord: {1113, 201}, facing: :east}
+{"S", 3}
+%Day12.Ship{coord: {1113, 198}, facing: :east}
+{"L", 90}
+%Day12.Ship{coord: {1113, 198}, facing: :north}
+{"W", 1}
+%Day12.Ship{coord: {1112, 198}, facing: :north}
+{"S", 2}
+%Day12.Ship{coord: {1112, 196}, facing: :north}
+{"F", 48}
+%Day12.Ship{coord: {1112, 244}, facing: :north}
+{"L", 90}
+%Day12.Ship{coord: {1112, 244}, facing: :east}
+{"E", 5}
+%Day12.Ship{coord: {1117, 244}, facing: :east}
+{"L", 180}
+%Day12.Ship{coord: {1117, 244}, facing: :west}
+{"F", 25}
+%Day12.Ship{coord: {1092, 244}, facing: :west}
+{"W", 2}
+%Day12.Ship{coord: {1090, 244}, facing: :west}
+{"F", 78}
+%Day12.Ship{coord: {1012, 244}, facing: :west}
+{"F", 78}
+%Day12.Ship{coord: {934, 244}, facing: :west}
+{"E", 1}
+%Day12.Ship{coord: {935, 244}, facing: :west}
+{"S", 3}
+%Day12.Ship{coord: {935, 241}, facing: :west}
+{"W", 4}
+%Day12.Ship{coord: {931, 241}, facing: :west}
+{"N", 4}
+%Day12.Ship{coord: {931, 245}, facing: :west}
+{"L", 90}
+%Day12.Ship{coord: {931, 245}, facing: :south}
+{"F", 73}
+%Day12.Ship{coord: {931, 172}, facing: :south}
+{"S", 4}
+%Day12.Ship{coord: {931, 168}, facing: :south}
+{"F", 91}
+%Day12.Ship{coord: {931, 77}, facing: :south}
+{"R", 180}
+%Day12.Ship{coord: {931, 77}, facing: :north}
+{"F", 21}
+%Day12.Ship{coord: {931, 98}, facing: :north}
+{"N", 4}
+%Day12.Ship{coord: {931, 102}, facing: :north}
+{"F", 9}
+%Day12.Ship{coord: {931, 111}, facing: :north}
+{"W", 1}
+%Day12.Ship{coord: {930, 111}, facing: :north}
+{"N", 4}
+%Day12.Ship{coord: {930, 115}, facing: :north}
+{"L", 90}
+%Day12.Ship{coord: {930, 115}, facing: :east}
+{"N", 4}
+%Day12.Ship{coord: {930, 119}, facing: :east}
+{"L", 180}
+%Day12.Ship{coord: {930, 119}, facing: :west}
+{"N", 5}
+%Day12.Ship{coord: {930, 124}, facing: :west}
+{"E", 5}
+%Day12.Ship{coord: {935, 124}, facing: :west}
+{"L", 90}
+%Day12.Ship{coord: {935, 124}, facing: :south}
+{"S", 3}
+%Day12.Ship{coord: {935, 121}, facing: :south}
+{"R", 90}
+%Day12.Ship{coord: {935, 121}, facing: :west}
+{"W", 3}
+%Day12.Ship{coord: {932, 121}, facing: :west}
+{"R", 90}
+%Day12.Ship{coord: {932, 121}, facing: :north}
+{"F", 65}
+%Day12.Ship{coord: {932, 186}, facing: :north}
+{"E", 5}
+%Day12.Ship{coord: {937, 186}, facing: :north}
+{"E", 1}
+%Day12.Ship{coord: {938, 186}, facing: :north}
+{"F", 10}
+%Day12.Ship{coord: {938, 196}, facing: :north}
+{"L", 270}
+%Day12.Ship{coord: {938, 196}, facing: :east}
+{"F", 71}
+%Day12.Ship{coord: {1009, 196}, facing: :east}
+{"E", 2}
+%Day12.Ship{coord: {1011, 196}, facing: :east}
+{"F", 10}
+%Day12.Ship{coord: {1021, 196}, facing: :east}
+{"L", 180}
+%Day12.Ship{coord: {1021, 196}, facing: :west}
+{"W", 4}
+%Day12.Ship{coord: {1017, 196}, facing: :west}
+{"S", 2}
+%Day12.Ship{coord: {1017, 194}, facing: :west}
+{"W", 2}
+%Day12.Ship{coord: {1015, 194}, facing: :west}
+{"L", 90}
+%Day12.Ship{coord: {1015, 194}, facing: :south}
+{"F", 22}
+%Day12.Ship{coord: {1015, 172}, facing: :south}
+{"W", 4}
+%Day12.Ship{coord: {1011, 172}, facing: :south}
+{"F", 41}
+%Day12.Ship{coord: {1011, 131}, facing: :south}
+{"N", 4}
+%Day12.Ship{coord: {1011, 135}, facing: :south}
+{"E", 5}
+%Day12.Ship{coord: {1016, 135}, facing: :south}
+{"R", 90}
+%Day12.Ship{coord: {1016, 135}, facing: :west}
+{"N", 1}
+%Day12.Ship{coord: {1016, 136}, facing: :west}
+{"W", 4}
+%Day12.Ship{coord: {1012, 136}, facing: :west}
+{"F", 34}
+%Day12.Ship{coord: {978, 136}, facing: :west}
+{"R", 270}
+%Day12.Ship{coord: {978, 136}, facing: :south}
+{"E", 5}
+%Day12.Ship{coord: {983, 136}, facing: :south}
+{"F", 77}
+%Day12.Ship{coord: {983, 59}, facing: :south}
+{"L", 270}
+%Day12.Ship{coord: {983, 59}, facing: :west}
+{"R", 180}
+%Day12.Ship{coord: {983, 59}, facing: :east}
+{"E", 5}
+%Day12.Ship{coord: {988, 59}, facing: :east}
+{"N", 3}
+%Day12.Ship{coord: {988, 62}, facing: :east}
+{"R", 180}
+%Day12.Ship{coord: {988, 62}, facing: :west}
+{"E", 4}
+%Day12.Ship{coord: {992, 62}, facing: :west}
+{"R", 90}
+%Day12.Ship{coord: {992, 62}, facing: :north}
+{"E", 2}
+%Day12.Ship{coord: {994, 62}, facing: :north}
+{"F", 25}
+%Day12.Ship{coord: {994, 87}, facing: :north}
+{"F", 34}
+%Day12.Ship{coord: {994, 121}, facing: :north}
+{"S", 3}
+%Day12.Ship{coord: {994, 118}, facing: :north}
+{"E", 4}
+%Day12.Ship{coord: {998, 118}, facing: :north}
+{"N", 5}
+%Day12.Ship{coord: {998, 123}, facing: :north}
+{"W", 5}
+%Day12.Ship{coord: {993, 123}, facing: :north}
+{"L", 90}
+%Day12.Ship{coord: {993, 123}, facing: :east}
+{"L", 90}
+%Day12.Ship{coord: {993, 123}, facing: :north}
+{"F", 78}
+%Day12.Ship{coord: {993, 201}, facing: :north}
+{"L", 90}
+%Day12.Ship{coord: {993, 201}, facing: :east}
+{"S", 1}
+%Day12.Ship{coord: {993, 200}, facing: :east}
+{"W", 4}
+%Day12.Ship{coord: {989, 200}, facing: :east}
+{"F", 32}
+%Day12.Ship{coord: {1021, 200}, facing: :east}
+{"E", 5}
+%Day12.Ship{coord: {1026, 200}, facing: :east}
+{"F", 54}
+%Day12.Ship{coord: {1080, 200}, facing: :east}
+{"E", 2}
+%Day12.Ship{coord: {1082, 200}, facing: :east}
+{"F", 61}
+%Day12.Ship{coord: {1143, 200}, facing: :east}
+{"E", 3}
+%Day12.Ship{coord: {1146, 200}, facing: :east}
+{"N", 4}
+%Day12.Ship{coord: {1146, 204}, facing: :east}
+{"F", 60}
+%Day12.Ship{coord: {1206, 204}, facing: :east}
+{"N", 1}
+%Day12.Ship{coord: {1206, 205}, facing: :east}
+{"R", 90}
+%Day12.Ship{coord: {1206, 205}, facing: :south}
+{"F", 4}
+%Day12.Ship{coord: {1206, 201}, facing: :south}
+{"N", 1}
+%Day12.Ship{coord: {1206, 202}, facing: :south}
+{"R", 90}
+%Day12.Ship{coord: {1206, 202}, facing: :west}
+{"E", 1}
+%Day12.Ship{coord: {1207, 202}, facing: :west}
+{"L", 180}
+%Day12.Ship{coord: {1207, 202}, facing: :east}
+{"R", 90}
+%Day12.Ship{coord: {1207, 202}, facing: :south}
+{"F", 4}
+%Day12.Ship{coord: {1207, 198}, facing: :south}
+{"E", 3}
+%Day12.Ship{coord: {1210, 198}, facing: :south}
+{"F", 4}
+%Day12.Ship{coord: {1210, 194}, facing: :south}
+{"L", 90}
+%Day12.Ship{coord: {1210, 194}, facing: :east}
+{"S", 4}
+%Day12.Ship{coord: {1210, 190}, facing: :east}
+{"W", 1}
+%Day12.Ship{coord: {1209, 190}, facing: :east}
+{"L", 90}
+%Day12.Ship{coord: {1209, 190}, facing: :north}
+{"E", 1}
+%Day12.Ship{coord: {1210, 190}, facing: :north}
+{"L", 90}
+%Day12.Ship{coord: {1210, 190}, facing: :east}
+{"S", 5}
+%Day12.Ship{coord: {1210, 185}, facing: :east}
+{"F", 30}
+%Day12.Ship{coord: {1240, 185}, facing: :east}
+{"R", 90}
+%Day12.Ship{coord: {1240, 185}, facing: :south}
+{"F", 34}
+%Day12.Ship{coord: {1240, 151}, facing: :south}
+{"N", 4}
+%Day12.Ship{coord: {1240, 155}, facing: :south}
+{"F", 95}
+%Day12.Ship{coord: {1240, 60}, facing: :south}
+{"R", 180}
+%Day12.Ship{coord: {1240, 60}, facing: :north}
+{"F", 59}
+%Day12.Ship{coord: {1240, 119}, facing: :north}
+{"R", 90}
+%Day12.Ship{coord: {1240, 119}, facing: :east}
+{"F", 47}
+%Day12.Ship{coord: {1287, 119}, facing: :east}
+{"E", 4}
+%Day12.Ship{coord: {1291, 119}, facing: :east}
+{"F", 48}
+%Day12.Ship{coord: {1339, 119}, facing: :east}
+{"L", 90}
+%Day12.Ship{coord: {1339, 119}, facing: :north}
+{"F", 59}
+%Day12.Ship{coord: {1339, 178}, facing: :north}
+{"W", 1}
+%Day12.Ship{coord: {1338, 178}, facing: :north}
+{"S", 4}
+%Day12.Ship{coord: {1338, 174}, facing: :north}
+{"F", 12}
+%Day12.Ship{coord: {1338, 186}, facing: :north}
+{"R", 90}
+%Day12.Ship{coord: {1338, 186}, facing: :east}
+{"F", 59}
+%Day12.Ship{coord: {1397, 186}, facing: :east}
+{"S", 1}
+%Day12.Ship{coord: {1397, 185}, facing: :east}
+{"F", 53}
+%Day12.Ship{coord: {1450, 185}, facing: :east}
+{"N", 5}
+%Day12.Ship{coord: {1450, 190}, facing: :east}
+{"F", 15}
+%Day12.Ship{coord: {1465, 190}, facing: :east}
+{"L", 90}
+%Day12.Ship{coord: {1465, 190}, facing: :north}
+{"F", 47}
+%Day12.Ship{coord: {1465, 237}, facing: :north}
+{"N", 3}
+%Day12.Ship{coord: {1465, 240}, facing: :north}
+{"E", 2}
+%Day12.Ship{coord: {1467, 240}, facing: :north}
+{"F", 77}
+%Day12.Ship{coord: {1467, 317}, facing: :north}
+{"R", 180}
+%Day12.Ship{coord: {1467, 317}, facing: :south}
+{"F", 59}
+%Day12.Ship{coord: {1467, 258}, facing: :south}
+{"W", 3}
+%Day12.Ship{coord: {1464, 258}, facing: :south}
+{"S", 3}
+%Day12.Ship{coord: {1464, 255}, facing: :south}
+{"F", 40}
+%Day12.Ship{coord: {1464, 215}, facing: :south}
+{"E", 4}
+%Day12.Ship{coord: {1468, 215}, facing: :south}
+{"L", 90}
+%Day12.Ship{coord: {1468, 215}, facing: :east}
+{"S", 5}
+%Day12.Ship{coord: {1468, 210}, facing: :east}
+{"F", 19}
+%Day12.Ship{coord: {1487, 210}, facing: :east}
+{"S", 1}
+%Day12.Ship{coord: {1487, 209}, facing: :east}
+{"W", 5}
+%Day12.Ship{coord: {1482, 209}, facing: :east}
+{"N", 1}
+%Day12.Ship{coord: {1482, 210}, facing: :east}
+{"L", 90}
+%Day12.Ship{coord: {1482, 210}, facing: :north}
+{"S", 2}
+%Day12.Ship{coord: {1482, 208}, facing: :north}
+{"E", 1}
+%Day12.Ship{coord: {1483, 208}, facing: :north}
+{"F", 17}
+%Day12.Ship{coord: {1483, 225}, facing: :north}
+{"L", 90}
+%Day12.Ship{coord: {1483, 225}, facing: :east}
+{"E", 1}
+%Day12.Ship{coord: {1484, 225}, facing: :east}
+{"F", 93}
+%Day12.Ship{coord: {1577, 225}, facing: :east}
+{"N", 5}
+%Day12.Ship{coord: {1577, 230}, facing: :east}
+{"F", 95}
+%Day12.Ship{coord: {1672, 230}, facing: :east}
+{"W", 1}
+%Day12.Ship{coord: {1671, 230}, facing: :east}
+{"L", 90}
+%Day12.Ship{coord: {1671, 230}, facing: :north}
+{"F", 5}
+%Day12.Ship{coord: {1671, 235}, facing: :north}
+{"E", 2}
+%Day12.Ship{coord: {1673, 235}, facing: :north}
+{"L", 270}
+%Day12.Ship{coord: {1673, 235}, facing: :east}
+{"N", 3}
+%Day12.Ship{coord: {1673, 238}, facing: :east}
+{"L", 90}
+%Day12.Ship{coord: {1673, 238}, facing: :north}
+{"E", 4}
+%Day12.Ship{coord: {1677, 238}, facing: :north}
+{"W", 2}
+%Day12.Ship{coord: {1675, 238}, facing: :north}
+{"W", 2}
+%Day12.Ship{coord: {1673, 238}, facing: :north}
+{"F", 30}
+%Day12.Ship{coord: {1673, 268}, facing: :north}
+{"W", 3}
+%Day12.Ship{coord: {1670, 268}, facing: :north}
+{"L", 90}
+%Day12.Ship{coord: {1670, 268}, facing: :east}
+{"F", 87}
+%Day12.Ship{coord: {1757, 268}, facing: :east}
+{"R", 270}
+%Day12.Ship{coord: {1757, 268}, facing: :north}
+{"N", 5}
+%Day12.Ship{coord: {1757, 273}, facing: :north}
+{"F", 51}
+%Day12.Ship{coord: {1757, 324}, facing: :north}
+{"R", 270}
+%Day12.Ship{coord: {1757, 324}, facing: :east}
+{"F", 97}
+%Day12.Ship{coord: {1854, 324}, facing: :east}
+{"E", 4}
+%Day12.Ship{coord: {1858, 324}, facing: :east}
+{"S", 5}
+%Day12.Ship{coord: {1858, 319}, facing: :east}
+{"W", 1}
+%Day12.Ship{coord: {1857, 319}, facing: :east}
+{"R", 90}
+%Day12.Ship{coord: {1857, 319}, facing: :south}
+{"W", 4}
+%Day12.Ship{coord: {1853, 319}, facing: :south}
+{"F", 84}
+%Day12.Ship{coord: {1853, 235}, facing: :south}
+{"E", 5}
+%Day12.Ship{coord: {1858, 235}, facing: :south}
+{"R", 90}
+%Day12.Ship{coord: {1858, 235}, facing: :west}
+{"W", 4}
+%Day12.Ship{coord: {1854, 235}, facing: :west}
+{"N", 1}
+%Day12.Ship{coord: {1854, 236}, facing: :west}
+{"R", 90}
+%Day12.Ship{coord: {1854, 236}, facing: :north}
+{"F", 67}
+%Day12.Ship{coord: {1854, 303}, facing: :north}
+{"L", 90}
+%Day12.Ship{coord: {1854, 303}, facing: :east}
+{"W", 2}
+%Day12.Ship{coord: {1852, 303}, facing: :east}
+{"R", 90}
+%Day12.Ship{coord: {1852, 303}, facing: :south}
+{"W", 1}
+%Day12.Ship{coord: {1851, 303}, facing: :south}
+{"S", 5}
+%Day12.Ship{coord: {1851, 298}, facing: :south}
+{"F", 17}
+%Day12.Ship{coord: {1851, 281}, facing: :south}
+{"F", 83}
+%Day12.Ship{coord: {1851, 198}, facing: :south}
+{"E", 3}
+%Day12.Ship{coord: {1854, 198}, facing: :south}
+{"L", 90}
+%Day12.Ship{coord: {1854, 198}, facing: :east}
+{"N", 1}
+%Day12.Ship{coord: {1854, 199}, facing: :east}
+{"W", 3}
+%Day12.Ship{coord: {1851, 199}, facing: :east}
+{"L", 90}
+%Day12.Ship{coord: {1851, 199}, facing: :north}
+{"F", 50}
+%Day12.Ship{coord: {1851, 249}, facing: :north}
+{"E", 1}
+%Day12.Ship{coord: {1852, 249}, facing: :north}
+{"F", 70}
+%Day12.Ship{coord: {1852, 319}, facing: :north}
+{"S", 5}
+%Day12.Ship{coord: {1852, 314}, facing: :north}
+{"F", 35}
+%Day12.Ship{coord: {1852, 349}, facing: :north}
+{"R", 270}
+%Day12.Ship{coord: {1852, 349}, facing: :east}
+{"N", 4}
+%Day12.Ship{coord: {1852, 353}, facing: :east}
+{"W", 3}
+%Day12.Ship{coord: {1849, 353}, facing: :east}
+{"S", 2}
+%Day12.Ship{coord: {1849, 351}, facing: :east}
+{"L", 90}
+%Day12.Ship{coord: {1849, 351}, facing: :north}
+{"S", 1}
+%Day12.Ship{coord: {1849, 350}, facing: :north}
+{"E", 1}
+%Day12.Ship{coord: {1850, 350}, facing: :north}
+{"L", 90}
+%Day12.Ship{coord: {1850, 350}, facing: :east}
+{"S", 1}
+%Day12.Ship{coord: {1850, 349}, facing: :east}
+{"R", 180}
+%Day12.Ship{coord: {1850, 349}, facing: :west}
+{"F", 32}
+%Day12.Ship{coord: {1818, 349}, facing: :west}
+{"W", 5}
+%Day12.Ship{coord: {1813, 349}, facing: :west}
+{"N", 5}
+%Day12.Ship{coord: {1813, 354}, facing: :west}
+{"W", 3}
+%Day12.Ship{coord: {1810, 354}, facing: :west}
+{"R", 90}
+%Day12.Ship{coord: {1810, 354}, facing: :north}
+{"S", 4}
+%Day12.Ship{coord: {1810, 350}, facing: :north}
+{"F", 51}
+%Day12.Ship{coord: {1810, 401}, facing: :north}
+{"R", 180}
+%Day12.Ship{coord: {1810, 401}, facing: :south}
+{"F", 89}
+%Day12.Ship{coord: {1810, 312}, facing: :south}
+{"S", 4}
+%Day12.Ship{coord: {1810, 308}, facing: :south}
+{"L", 90}
+%Day12.Ship{coord: {1810, 308}, facing: :east}
+{"F", 14}
+%Day12.Ship{coord: {1824, 308}, facing: :east}
+{"S", 4}
+%Day12.Ship{coord: {1824, 304}, facing: :east}
+{"L", 180}
+%Day12.Ship{coord: {1824, 304}, facing: :west}
+{"W", 2}
+%Day12.Ship{coord: {1822, 304}, facing: :west}
+{"R", 90}
+%Day12.Ship{coord: {1822, 304}, facing: :north}
+{"F", 25}
+%Day12.Ship{coord: {1822, 329}, facing: :north}
+{"W", 5}
+%Day12.Ship{coord: {1817, 329}, facing: :north}
+{"F", 44}
+%Day12.Ship{coord: {1817, 373}, facing: :north}
+{"W", 3}
+%Day12.Ship{coord: {1814, 373}, facing: :north}
+{"L", 180}
+%Day12.Ship{coord: {1814, 373}, facing: :south}
+{"F", 27}
+%Day12.Ship{coord: {1814, 346}, facing: :south}
+{"W", 3}
+%Day12.Ship{coord: {1811, 346}, facing: :south}
+{"L", 180}
+%Day12.Ship{coord: {1811, 346}, facing: :north}
+{"L", 180}
+%Day12.Ship{coord: {1811, 346}, facing: :south}
+{"F", 52}
+%Day12.Ship{coord: {1811, 294}, facing: :south}
+{"N", 3}
+%Day12.Ship{coord: {1811, 297}, facing: :south}
+{"W", 1}
+%Day12.Ship{coord: {1810, 297}, facing: :south}
+{"N", 1}
+%Day12.Ship{coord: {1810, 298}, facing: :south}
+{"F", 4}
+%Day12.Ship{coord: {1810, 294}, facing: :south}
+{"E", 2}
+%Day12.Ship{coord: {1812, 294}, facing: :south}
+{"R", 90}
+%Day12.Ship{coord: {1812, 294}, facing: :west}
+{"F", 52}
+%Day12.Ship{coord: {1760, 294}, facing: :west}
+{"L", 90}
+%Day12.Ship{coord: {1760, 294}, facing: :south}
+{"F", 94}
+%Day12.Ship{coord: {1760, 200}, facing: :south}
+{"L", 90}
+%Day12.Ship{coord: {1760, 200}, facing: :east}
+{"F", 13}
+%Day12.Ship{coord: {1773, 200}, facing: :east}
+1973
