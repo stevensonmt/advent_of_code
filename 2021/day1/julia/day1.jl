@@ -14,8 +14,9 @@ function incremented(windows)
   collect(Base.Iterators.filter(n -> first(n) < last(n), windows))
 end
 
-single_increments = incremented(get_windows(process(get_input("../lib/input.txt")), 2, 1))
-trio_increments = incremented(get_windows(process(get_input("../lib/input.txt")), 4, 1))
+single_increments = "../lib/input.txt" |> get_input |> process |> p -> get_windows(p, 2, 1) |> incremented
+
+trio_increments = "../lib/input.txt" |> get_input |> process |> p -> get_windows(p, 4, 1) |> incremented
 
 println(length(single_increments))
 println(length(trio_increments))
