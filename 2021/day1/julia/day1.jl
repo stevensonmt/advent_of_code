@@ -20,3 +20,11 @@ trio_increments = "../lib/input.txt" |> get_input |> process |> p -> get_windows
 
 println(length(single_increments))
 println(length(trio_increments))
+
+∑Δ(i) = i |> diff .|> >(0) |> sum |> println
+
+input = parse.(Int, readlines("../lib/input.txt"))
+
+windows = [ sum(input[i:i+2]) for i=1:length(input)-2 ]
+
+return [∑Δ(input), ∑Δ(windows)]
