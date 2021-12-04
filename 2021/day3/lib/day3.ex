@@ -6,66 +6,84 @@ defmodule Day3 do
   @input "input.txt"
          |> File.stream!()
          |> Enum.map(&String.trim(&1))
+         |> Enum.map(&String.graphemes(&1))
 
-  def process_1() do
-    @input
-    |> Enum.map(&(String.graphemes(&1) |> Enum.with_index()))
-    |> List.flatten()
-    |> Enum.group_by(&elem(&1, 1), &elem(&1, 0))
-    |> Enum.map(fn {k, v} -> Enum.frequencies(v) end)
+  @limit Enum.at(@input, 0) |> length()
+
+  def frequencies(input) do
+    input
+    |> Enum.zip()
+    |> Enum.map(&Tuple.to_list(&1))
+    |> Enum.map(&Enum.frequencies(&1))
   end
 
-  def do_part_1() do
-    gamma = process_1() |> gamma() |> Enum.map(fn d -> String.to_integer(d) end)
-    epsilon = invert(gamma)
-
-    [gamma, epsilon]
-    |> Enum.map(&Integer.undigits(&1, 2))
-    |> Enum.product()
+  def gamma() do
+    frequencies(@input)
+    |> Enum.map(&Enum.max_by(&1, fn {_, v} -> v end))
+    |> Enum.map(&elem(&1, 0))
+    |> Enum.map(&String.to_integer(&1))
+    |> IO.inspect()
+    |> Integer.undigits(2)
+    |> IO.inspect()
   end
 
-  def gamma(src) do
-    src
-    |> Enum.map(fn f -> Enum.max_by(f, &elem(&1, 1)) |> elem(0) end)
+  def epsilon() do
+    ~~~gamma() &&& 0b111111111111 |> IO.inspect()
   end
 
-  def invert(bits) do
-    bits
-    |> Enum.map(fn b ->
-      if b == 1 do
-        0
-      else
-        1
-      end
-    end)
+  def do_pt_1() do
+    gamma() * epsilon()
   end
 
-  def do_part_2() do
-    l = bits_length() - 1
-    oxygen(0, l, process_1() |> IO.inspect())
+  def ohtoo() do
+    ohtoo(0, @input)
+    |> Enum.map(&String.to_integer(&1))
+    |> Integer.undigits(2)
   end
 
-  defp bits_length() do
-    @input
-    |> List.first()
-    |> String.graphemes()
-    |> length()
+  def ohtoo(column, input) when column < @limit do
+    max_bit =
+      frequencies(input)
+      |> Enum.at(column)
+      |> Enum.max_by(&elem(&1, 1))
+      |> elem(0)
+
+    new_input =
+      input
+      |> Enum.filter(fn n -> Enum.at(n, column) == max_bit end)
+
+    ohtoo(column + 1, new_input)
   end
 
-  defp oxygen(current, limit, src) do
-    if current < limit do
-      gamma = gamma(src)
-      mask = Enum.at(gamma, current)
-      new = src |> Enum.filter(fn i -> Enum.at(i, current) == mask end)
-      oxygen(current + 1, limit, new)
-    else
-      List.first(src)
-    end
+  def ohtoo(_, [input]), do: input
+
+  def seeohtoo() do
+    seeohtoo(0, @input)
+    |> Enum.map(&String.to_integer(&1))
+    |> Integer.undigits(2)
+  end
+
+  def seeohtoo(column, input) when column < @limit do
+    min_bit =
+      frequencies(input)
+      |> Enum.at(column)
+      |> Enum.min_by(&elem(&1, 1))
+      |> elem(0)
+
+    new_input =
+      input
+      |> Enum.filter(fn n -> Enum.at(n, column) == min_bit end)
+
+    seeohtoo(column + 1, new_input)
+  end
+
+  def seeohtoo(_, [input]), do: input
+
+  def do_pt_2() do
+    ohtoo() * seeohtoo()
   end
 end
 
-Day3.do_part_1()
-|> IO.inspect()
-
-Day3.do_part_2()
-|> IO.inspect()
+Day3.ohtoo() |> IO.inspect()
+Day3.seeohtoo() |> IO.inspect()
+Day3.do_pt_2() |> IO.inspect()
