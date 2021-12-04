@@ -8,6 +8,8 @@ defmodule Day3 do
          |> Enum.map(&String.trim(&1))
          |> Enum.map(&String.graphemes(&1))
 
+  def input, do: @input
+
   @limit Enum.at(@input, 0) |> length()
 
   def frequencies(input) do
@@ -22,13 +24,11 @@ defmodule Day3 do
     |> Enum.map(&Enum.max_by(&1, fn {_, v} -> v end))
     |> Enum.map(&elem(&1, 0))
     |> Enum.map(&String.to_integer(&1))
-    |> IO.inspect()
     |> Integer.undigits(2)
-    |> IO.inspect()
   end
 
   def epsilon() do
-    ~~~gamma() &&& 0b111111111111 |> IO.inspect()
+    ~~~gamma() &&& 0b111111111111
   end
 
   def do_pt_1() do
@@ -45,7 +45,7 @@ defmodule Day3 do
     max_bit =
       frequencies(input)
       |> Enum.at(column)
-      |> Enum.max_by(&elem(&1, 1))
+      |> Enum.max_by(&elem(&1, 1), &>/2)
       |> elem(0)
 
     new_input =
@@ -67,7 +67,7 @@ defmodule Day3 do
     min_bit =
       frequencies(input)
       |> Enum.at(column)
-      |> Enum.min_by(&elem(&1, 1))
+      |> Enum.min_by(&elem(&1, 1), &<=/2)
       |> elem(0)
 
     new_input =
@@ -84,6 +84,4 @@ defmodule Day3 do
   end
 end
 
-Day3.ohtoo() |> IO.inspect()
-Day3.seeohtoo() |> IO.inspect()
 Day3.do_pt_2() |> IO.inspect()
