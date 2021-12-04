@@ -3,6 +3,29 @@ defmodule Day4 do
 
   @input "input.txt" |> File.read!() |> String.split()
 
+  @type board :: {%{required(integer) => {integer, integer}}, MapSet.t(), MapSet.t()}
+
+  @spec boards() :: [board]
+  def boards() do
+    @input
+    |> tl()
+    |> Enum.chunk_every(5)
+    |> Enum.chunk_every(5)
+    |> Enum.map(&Enum.with_index(&1))
+    |> Enum.map(&Enum.map(&1, fn {r, i} -> {Enum.with_index(r), i} end))
+    |> Enum.map(
+      &Enum.map(&1, fn {cells, row_ndx} ->
+        cells
+        |> Enum.map(fn {val, col_ndx} -> {String.to_integer(val), {row_ndx, col_ndx}} end)
+      end)
+    )
+    |> Enum.map(&List.flatten(&1))
+    |> Enum.map(&Enum.into(&1, %{}))
+    |> Enum.map(fn map -> {map, MapSet.new(), MapSet.new()} end)
+  end
+
+  @ns hd(@input) |> String.split(",") |> Enum.map(&String.to_integer(&1)) |> IO.inspect()
+
   @drawpool hd(@input) |> String.split(",")
 
   @boards tl(@input)
@@ -103,8 +126,10 @@ defmodule Day4 do
   def calc(boards, [n | numbers]) do
     boards =
       Enum.map(boards, fn {map, coords, ns} = original ->
-        if where = Map.get(map, n) do
-          {map, MapSet.put(coords, where), MapSet.put(ns, n)}
+        if coord = Map.get(map, n) do
+          # if n is a key in the board map, mark the cell and its value off
+          # by placing them in the "marked" coord and value map sets respectively.
+          {map, MapSet.put(coords, coord), MapSet.put(ns, n)}
         else
           original
         end
@@ -134,5 +159,4 @@ defmodule Day4 do
   end
 end
 
-Day4.do_pt_1() |> IO.inspect()
-Day4.do_pt_2() |> IO.inspect()
+Day4.boards()
