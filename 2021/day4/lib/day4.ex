@@ -31,64 +31,11 @@ defmodule Day4 do
 
     winner = check_boards(new_boards)
 
-    cond do
-      winner == nil ->
-        bingo(rest, new_boards, pt)
-
-      pt == 2 and [winner] == new_boards ->
-        sum_board(winner) * String.to_integer(n)
-
-      pt == 2 ->
-        newer_boards = new_boards |> Enum.reject(&Kernel.==(&1, winner))
-
-        try do
-          bingo(rest, newer_boards, pt)
-        rescue
-          _ ->
-            sum_board(winner) * String.to_integer(n)
-        end
-
-      true ->
-        sum_board(winner) * String.to_integer(n)
+    if winner == nil do
+      bingo(rest, new_boards, pt)
+    else
+      sum_board(winner) * String.to_integer(n)
     end
-  end
-
-  def loser_bingo([n | rest], boards) do
-    marked_boards = boards |> Enum.map(&mark_cells(n, &1))
-
-    checked = check_boards2(marked_boards)
-
-    case {length(marked_boards), length(checked)} do
-      {2, 1} ->
-        loser = marked_boards |> Enum.reject(&Enum.any?(checked, fn b -> b == &1 end))
-        IO.inspect(loser)
-        IO.puts("$$$$")
-        IO.inspect(marked_boards)
-        IO.puts("%%%%")
-        IO.inspect(checked)
-        sum_board(loser) |> Kernel.*(String.to_integer(n))
-
-      _ ->
-        loser_bingo(rest, checked)
-    end
-  end
-
-  defp check_boards2(boards) do
-    tmp =
-      boards
-      |> Enum.reject(&empty_rows(&1))
-
-    IO.inspect(length(tmp))
-
-    tmp2 =
-      tmp
-      |> cols_transform()
-      |> Enum.reject(&empty_cols(&1))
-
-    IO.inspect(length(tmp2))
-
-    tmp2
-    |> cols_transform()
   end
 
   defp mark_cells(n, board) do
@@ -150,7 +97,40 @@ defmodule Day4 do
   end
 
   def do_pt_2() do
-    loser_bingo(@drawpool, @boards)
+    calc(@boards2, @drawpool)
+  end
+
+  def calc(boards, [n | numbers]) do
+    boards =
+      Enum.map(boards, fn {map, coords, ns} = original ->
+        if where = Map.get(map, n) do
+          {map, MapSet.put(coords, where), MapSet.put(ns, n)}
+        else
+          original
+        end
+      end)
+
+    winners =
+      Enum.filter(boards, fn {_map, coords, _} ->
+        [Enum.group_by(coords, &elem(&1, 0)), Enum.group_by(coords, &elem(&1, 1))]
+        |> Enum.any?(fn map ->
+          Enum.any?(map, fn {_, v} -> length(v) == 5 end)
+        end)
+      end)
+
+    if match?(^winners, boards) do
+      {map, _, ns} = List.first(boards) |> IO.inspect(label: "list.first")
+
+      map
+      |> Map.keys()
+      |> Kernel.--(ns |> Enum.to_list() |> IO.inspect(label: "ns"))
+      |> Enum.map(&String.to_integer(&1))
+      |> Enum.sum()
+      |> IO.inspect(label: "sum")
+      |> Kernel.*(String.to_integer(n))
+    else
+      calc(boards -- winners, numbers)
+    end
   end
 end
 
