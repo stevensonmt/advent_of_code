@@ -4,15 +4,10 @@ defmodule Day5 do
   # input file processed to list of list of tuple pairs
   @input "input.txt"
          |> File.read!()
-         |> String.trim()
-         |> String.split("\n")
-         |> Enum.map(&String.split(&1, "->"))
-         |> Enum.map(
-           &Enum.map(&1, fn pair ->
-             [n, m] = String.split(String.trim(pair), ",")
-             {String.to_integer(n), String.to_integer(m)}
-           end)
-         )
+         |> String.split(["\n", ",", " -> "], trim: true)
+         |> Enum.map(&String.to_integer(&1))
+         |> Enum.chunk_every(4)
+         |> Enum.map(fn [a, b, c, d] -> [{a, b}, {c, d}] end)
 
   @spec count_overlaps(bool) :: %{{integer, integer} => integer}
   def count_overlaps(part1?) do
