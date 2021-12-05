@@ -52,16 +52,12 @@ defmodule Day5 do
 
   def do_pt_1() do
     count_overlaps(true)
-    |> Map.values()
-    |> Enum.filter(fn v -> v > 1 end)
-    |> Enum.count()
+    |> Enum.count(fn {_, v} -> v > 1 end)
   end
 
   def do_pt_2() do
     count_overlaps(false)
-    |> Map.values()
-    |> Enum.filter(fn v -> v > 1 end)
-    |> Enum.count()
+    |> Enum.count(fn {_, v} -> v > 1 end)
   end
 end
 
