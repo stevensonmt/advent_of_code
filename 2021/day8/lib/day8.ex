@@ -27,9 +27,11 @@ defmodule Day8 do
     |> Stream.map(fn [digits, vals] ->
       [
         digits
-        |> Enum.map(fn d -> String.graphemes(d) |> Enum.sort() end)
-        |> Enum.uniq(),
-        vals |> Enum.map(fn d -> String.graphemes(d) |> Enum.sort() end)
+        |> Enum.map(fn d -> String.graphemes(d) |> MapSet.new() end)
+        |> Enum.reduce(%{}, fn ms, acc ->
+          Map.update(acc, MapSet.size(ms), [ms], fn curr -> [ms | curr] end)
+        end),
+        vals |> Enum.map(fn d -> String.graphemes(d) |> MapSet.new() end)
       ]
     end)
     |> Stream.map(&decipher/1)
@@ -49,58 +51,60 @@ defmodule Day8 do
     [1, 7, 4, 8]
     |> Stream.zip(@uniqdigitsegments)
     |> Stream.map(fn {n, segs} ->
-      {n, Enum.find(digits, fn s -> length(s) == segs end)}
+      {n, Map.get(digits, segs) |> hd()}
     end)
     |> Enum.into(%{})
   end
 
   defp decode_six_seg_digits(map, digits) do
     digits
-    |> Enum.filter(fn d -> length(d) == 6 end)
+    |> Map.get(6)
     |> decode_six(map)
     |> decode_zero_nine(digits)
   end
 
   defp decode_five_seg_digits(map, digits) do
     digits
-    |> Enum.filter(fn d -> length(d) == 5 end)
+    |> Map.get(5)
     |> decode_three(map)
     |> decode_two_five(digits)
   end
 
   defp decode_six(candidates, map) do
-    Map.put(
-      map,
-      6,
-      candidates
-      |> Enum.find(fn d -> not MapSet.subset?(MapSet.new(Map.get(map, 1)), MapSet.new(d)) end)
-    )
+    candidates
+    |> Enum.find(fn d -> not MapSet.subset?(Map.get(map, 1), d) end)
+    |> update_map(map, 6)
+  end
+
+  defp update_map(mapset, map, n) do
+    Map.put(map, n, mapset)
   end
 
   defp decode_zero_nine(map, digits) do
     digits
-    |> Enum.filter(fn d -> length(d) == 6 and Map.get(map, 6) != d end)
-    |> Enum.sort_by(fn d -> MapSet.subset?(MapSet.new(Map.get(map, 4)), MapSet.new(d)) end)
+    |> Map.get(6)
+    |> Enum.filter(fn d -> Map.get(map, 6) != d end)
+    |> Enum.sort_by(fn d -> MapSet.subset?(Map.get(map, 4), d) end)
     |> Enum.zip([0, 9])
     |> Enum.reduce(map, fn {v, k}, acc -> Map.put(acc, k, v) end)
   end
 
   defp decode_three(candidates, map) do
-    Map.put(
-      map,
-      3,
-      candidates
-      |> Enum.find(fn d -> MapSet.subset?(MapSet.new(Map.get(map, 1)), MapSet.new(d)) end)
-    )
+    candidates
+    |> Enum.find(fn d ->
+      MapSet.subset?(Map.get(map, 1), d)
+    end)
+    |> update_map(map, 3)
   end
 
   defp decode_two_five(map, digits) do
     digits
-    |> Enum.filter(fn d -> length(d) == 5 and Map.get(map, 3) != d end)
+    |> Map.get(5)
+    |> Enum.filter(fn d -> Map.get(map, 3) != d end)
     |> Enum.sort_by(fn d ->
       MapSet.subset?(
-        MapSet.new(MapSet.difference(MapSet.new(Map.get(map, 8)), MapSet.new(Map.get(map, 9)))),
-        MapSet.new(d)
+        MapSet.difference(Map.get(map, 8), Map.get(map, 9)),
+        d
       )
     end)
     |> Enum.zip([5, 2])
