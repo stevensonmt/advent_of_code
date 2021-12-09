@@ -27,15 +27,21 @@ defmodule Day8 do
     |> Stream.map(fn [digits, vals] ->
       [
         digits
-        |> Enum.map(fn d -> String.graphemes(d) |> MapSet.new() end)
+        |> Enum.map(&process_display(&1))
         |> Enum.reduce(%{}, fn ms, acc ->
           Map.update(acc, MapSet.size(ms), [ms], fn curr -> [ms | curr] end)
         end),
-        vals |> Enum.map(fn d -> String.graphemes(d) |> MapSet.new() end)
+        vals |> Enum.map(&process_display(&1))
       ]
     end)
     |> Stream.map(&decipher/1)
     |> Enum.sum()
+  end
+
+  defp process_display(display) do
+    display
+    |> String.graphemes()
+    |> MapSet.new()
   end
 
   def decipher([digits, coded_vals]) do
