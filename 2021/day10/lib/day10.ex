@@ -1,53 +1,30 @@
 defmodule Day10 do
   @moduledoc false
 
-  @input "input.txt"
-         |> File.stream!()
-         |> Enum.map(&String.trim(&1))
-         |> Enum.map(&String.graphemes(&1))
-
-  @test "test.txt"
-        |> File.stream!()
-        |> Enum.map(&String.trim(&1))
-        |> Enum.map(&String.graphemes(&1))
-
-  def do_pt_1(test? \\ false) do
-    input =
-      if test? do
-        @test
-      else
-        @input
-      end
-
+  def prep_input(input) do
     input
-    |> Enum.map(fn line -> check_line(line, []) end)
-    |> Enum.filter(&corrupt?(&1))
-    |> Enum.map(fn checked ->
-      case checked do
-        {:corrupt, b} ->
-          syntax_score(b)
+    |> File.stream!()
+    |> Stream.map(&String.trim(&1))
+    |> Stream.map(&String.graphemes(&1))
+  end
 
-        _ ->
-          0
-      end
-    end)
+  def do_pt_1(input) do
+    input
+    |> prep_input()
+    |> Stream.map(fn line -> check_line(line, []) end)
+    |> Stream.filter(&corrupt?(&1))
+    |> Stream.map(fn {:corrupt, b} -> syntax_score(b) end)
     |> Enum.sum()
     |> IO.inspect()
   end
 
-  def do_pt_2(test? \\ false) do
-    input =
-      if test? do
-        @test
-      else
-        @input
-      end
-
+  def do_pt_2(input) do
     input
-    |> Enum.map(&check_line(&1, []))
-    |> Enum.reject(&corrupt?(&1))
-    |> Enum.map(fn {_, bs} ->
-      Enum.map(bs, &syntax_score(&1))
+    |> prep_input()
+    |> Stream.map(&check_line(&1, []))
+    |> Stream.reject(&corrupt?(&1))
+    |> Stream.map(fn {_, bs} ->
+      Stream.map(bs, &syntax_score(&1))
       |> Enum.reduce(0, fn i, acc -> acc * 5 + i end)
     end)
     |> Enum.sort()
@@ -58,7 +35,6 @@ defmodule Day10 do
   defp get_mid(scores) do
     # floor b/c zero index derpp
     mid = floor(length(scores) / 2)
-    IO.inspect({mid, scores})
     Enum.at(scores, mid)
   end
 
@@ -102,5 +78,5 @@ defmodule Day10 do
   defp syntax_score("<"), do: 4
 end
 
-Day10.do_pt_1()
-Day10.do_pt_2()
+Day10.do_pt_1("input.txt")
+Day10.do_pt_2("input.txt")
