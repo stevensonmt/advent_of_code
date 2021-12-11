@@ -76,7 +76,7 @@ defmodule Day11 do
     data = input |> parse_input()
 
     Stream.iterate(0, fn i -> i + 1 end)
-    |> Enum.reduce_while({data, 0}, fn i, {map, c} ->
+    |> Enum.reduce_while({data, 0}, fn _i, {map, c} ->
       stepped = step(map)
 
       cond do
