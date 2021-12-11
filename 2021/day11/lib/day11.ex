@@ -1,11 +1,6 @@
 defmodule Day11 do
   @moduledoc false
 
-  @neighbors (for i <- -1..1,
-                  j <- -1..1 do
-                {i, j}
-              end)
-
   def parse_input(input) do
     input
     |> File.read!()
@@ -24,16 +19,13 @@ defmodule Day11 do
   def step(map) do
     map
     |> increment_all()
-    |> flash()
     |> reset_flashed()
-
-    # |> count_flashed()
   end
 
   def increment(map, coord) do
     case Map.fetch(map, coord) do
-      {:ok, 9} -> flash(Map.put(map, coord, 10))
-      {:ok, v} -> Map.put(map, coord, n + 1)
+      {:ok, 9} -> flash(Map.put(map, coord, 10), coord)
+      {:ok, v} -> Map.put(map, coord, v + 1)
       _ -> map
     end
   end
@@ -43,19 +35,16 @@ defmodule Day11 do
     |> Enum.reduce(map, fn {coord, _v}, acc -> increment(acc, coord) end)
   end
 
-  def flash(map) do
+  def flash(map, {x, y}) do
     map
-    |> Enum.filter(&Kernel.==(elem(&1, 1), 10))
-    |> Enum.flat_map(fn {{x, y}, _} ->
-      @neighbors |> Enum.map(fn {m, n} -> {m + x, n + y} end)
-    end)
-    |> Enum.reduce(map, fn coord, acc ->
-      case Map.fetch(acc, coord) do
-        {:ok, 9} -> flash(Map.put(acc, coord, 10))
-        {:ok, v} -> Map.put(acc, coord, v + 1)
-        _ -> acc
-      end
-    end)
+    |> increment({x + 1, y})
+    |> increment({x - 1, y})
+    |> increment({x + 1, y + 1})
+    |> increment({x - 1, y + 1})
+    |> increment({x + 1, y - 1})
+    |> increment({x - 1, y - 1})
+    |> increment({x, y + 1})
+    |> increment({x, y - 1})
   end
 
   def reset_flashed(map) do
@@ -75,13 +64,28 @@ defmodule Day11 do
       |> parse_input()
 
     1..100
-    |> Enum.reduce({data, 0}, fn i, {map, c} ->
+    |> Enum.reduce({data, 0}, fn _i, {map, c} ->
       updated = map |> step()
       count = updated |> Enum.count(fn {_, v} -> v == 0 end)
       {updated, c + count}
     end)
     |> elem(1)
   end
+
+  def pt_2(input) do
+    data = input |> parse_input()
+
+    Stream.iterate(0, fn i -> i + 1 end)
+    |> Enum.reduce_while({data, 0}, fn i, {map, c} ->
+      stepped = step(map)
+
+      cond do
+        Map.values(stepped) |> Enum.all?(&Kernel.==(&1, 0)) -> {:halt, c + 1}
+        true -> {:cont, {stepped, c + 1}}
+      end
+    end)
+  end
 end
 
-Day11.pt_1("test.txt") |> IO.inspect()
+Day11.pt_1("input.txt") |> IO.inspect()
+Day11.pt_2("input.txt") |> IO.inspect()
