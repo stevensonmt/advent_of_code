@@ -24,87 +24,61 @@ defmodule Day11 do
   def step(map) do
     map
     |> increment_all()
-    |> count_and_reset_flashed()
+    |> flash()
+    |> reset_flashed()
 
-    # |> reset_flashed()
     # |> count_flashed()
+  end
+
+  def increment(map, coord) do
+    case Map.fetch(map, coord) do
+      {:ok, 9} -> flash(Map.put(map, coord, 10))
+      {:ok, v} -> Map.put(map, coord, n + 1)
+      _ -> map
+    end
   end
 
   def increment_all(map) do
     map
-    |> Enum.map(fn {coord, v} -> {coord, v + 1} end)
-    |> Enum.into(%{})
-    |> flash()
+    |> Enum.reduce(map, fn {coord, _v}, acc -> increment(acc, coord) end)
   end
 
   def flash(map) do
     map
-    |> Enum.reduce({map, false}, fn {{i, j}, v}, {acc, flashed?} ->
-      if v == 10 do
-        IO.puts("not step 1")
-        {increment_neighbors(acc, {i, j}), true}
-      else
-        {acc, flashed?}
-      end
+    |> Enum.filter(&Kernel.==(elem(&1, 1), 10))
+    |> Enum.flat_map(fn {{x, y}, _} ->
+      @neighbors |> Enum.map(fn {m, n} -> {m + x, n + y} end)
     end)
-    |> recurse?()
-
-    # |> zero_flashed()
-  end
-
-  def increment_neighbors(map, {i, j}) do
-    @neighbors
-    |> Enum.reduce(map, fn {m, n}, acc ->
-      case Map.get(acc, {m + i, n + j}) do
-        nil ->
-          acc
-
-        # 9 ->
-        # flash(Map.put(acc, {m + i, n + j}, 10))
-
-        x ->
-          Map.put(acc, {m + i, n + j}, x + 1)
+    |> Enum.reduce(map, fn coord, acc ->
+      case Map.fetch(acc, coord) do
+        {:ok, 9} -> flash(Map.put(acc, coord, 10))
+        {:ok, v} -> Map.put(acc, coord, v + 1)
+        _ -> acc
       end
     end)
   end
 
-  def recurse?({map, false}), do: map
-  def recurse?({map, true}), do: flash(map)
-
-  def count_and_reset_flashed(map) do
+  def reset_flashed(map) do
     map
-    |> Enum.reject(fn {_, v} -> v < 10 end)
-    |> Enum.reduce({map, 0}, fn {coord, v}, {m, count} ->
+    |> Enum.reduce(map, fn {coord, v}, acc ->
       if v > 9 do
-        # IO.inspect(coord, label: "this flashed")
-        {Map.put(m, coord, 0), count + 1}
+        Map.put(acc, coord, 0)
       else
-        {m, count}
+        acc
       end
     end)
   end
-
-  def update_count({_, c} = t, count), do: put_elem(t, 1, c + count)
 
   def pt_1(input) do
     data =
       input
       |> parse_input()
 
-    1..2
-    |> Enum.reduce({data, 0}, fn i, {map, count} ->
-      IO.inspect(i, label: "STEP:")
-
-      t =
-        map
-        |> step()
-        # |> IO.inspect(label: "map, count")
-        |> update_count(count)
-
-      # Enum.sort_by(fn {coord, v} -> coord end) |> IO.inspect()
-      # elem(t, 0) |> Map.get({7, 3}) |> IO.inspect()
-
-      t
+    1..100
+    |> Enum.reduce({data, 0}, fn i, {map, c} ->
+      updated = map |> step()
+      count = updated |> Enum.count(fn {_, v} -> v == 0 end)
+      {updated, c + count}
     end)
     |> elem(1)
   end
