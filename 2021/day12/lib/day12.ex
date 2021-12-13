@@ -27,13 +27,14 @@ defmodule Day12 do
     |> Enum.flat_map(fn cave ->
       cond do
         String.upcase(cave) == cave -> build_paths(cave_system, [cave | path])
-        cave in prior_caves -> :dead_end
+        cave in prior_caves -> [:dead_end]
         cave == "end" -> [cave | path]
         true -> build_paths(cave_system, [cave | path])
       end
     end)
-    |> Enum.reject(&Kernel.==(Function.identity(&1), :dead_end))
-    |> Enum.count()
+
+    # |> Enum.reject(&Kernel.==(Function.identity(&1), :dead_end))
+    # |> Enum.count()
   end
 
   def do_pt_1(input) do
@@ -41,6 +42,9 @@ defmodule Day12 do
     |> parse()
     |> IO.inspect()
     |> build_paths()
+    |> IO.inspect(label: "paths")
+    |> Enum.count(&Kernel.==(&1, "end"))
+    |> IO.inspect(label: "just counting the ends")
   end
 end
 
@@ -53,3 +57,41 @@ A-end
 b-end"
 
 Day12.do_pt_1(sample)
+
+sample2 = "dc-end
+HN-start
+start-kj
+dc-start
+dc-HN
+LN-dc
+HN-end
+kj-sa
+kj-HN
+kj-dc"
+
+Day12.do_pt_1(sample2)
+
+sample3 = "fs-end
+he-DX
+fs-he
+start-DX
+pj-DX
+end-zg
+zg-sl
+zg-pj
+pj-he
+RW-he
+fs-DX
+pj-RW
+zg-RW
+start-pj
+he-WI
+zg-he
+pj-fs
+start-RW"
+
+Day12.do_pt_1(sample3)
+
+"input.txt"
+|> File.read!()
+|> Day12.do_pt_1()
