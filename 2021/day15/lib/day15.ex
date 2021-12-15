@@ -32,8 +32,6 @@ defmodule Day15 do
         current_distance,
         min_complete_distance
       ) do
-    IO.inspect(binding())
-
     if current_distance < min_complete_distance do
       current_distance |> IO.inspect(label: "distance travelled")
     else
@@ -82,10 +80,10 @@ end
 |> Day15.build_path([{0, 0}], 0, :infinity)
 |> IO.inspect()
 
-"input.txt"
-|> File.read!()
-|> Day15.init()
-|> Day15.build_path([{0, 0}], 0, :infinity)
-|> IO.inspect()
+# "input.txt"
+# |> File.read!()
+# |> Day15.init()
+# |> Day15.build_path([{0, 0}], 0, :infinity)
+# |> IO.inspect()
 
 # :timer.kill_after(:timer.seconds(10000), pid)
