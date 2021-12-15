@@ -26,16 +26,27 @@ defmodule Day15 do
     {map, max_row, max_col}
   end
 
-  def build_path({_, max_row, max_col}, [{max_row, max_col} | _rest], distance),
-    do: distance |> IO.inspect(label: "distance travelled")
+  def build_path(
+        {_, max_row, max_col},
+        [{max_row, max_col} | _rest],
+        current_distance,
+        min_complete_distance
+      ) do
+    IO.inspect(binding())
+
+    if current_distance < min_complete_distance do
+      current_distance |> IO.inspect(label: "distance travelled")
+    else
+      :too_long
+    end
+  end
 
   def build_path(
         {map, _max_row, _max_col} = init_args,
         [{row, col} = _last | _rest] = path,
-        distance
+        current_distance,
+        min_complete_distance
       ) do
-    IO.inspect(path, label: "path")
-
     candidates =
       @neighbors
       |> Enum.map(fn {r, c} -> {r + row, c + col} end)
@@ -45,15 +56,22 @@ defmodule Day15 do
           :error -> candidates
         end
       end)
-      |> Enum.reject(fn {coord, _d} -> coord in path end)
-      |> IO.inspect(label: "neighbors")
+      |> Enum.reject(fn {coord, d} ->
+        coord in path or d + current_distance > min_complete_distance
+      end)
 
     case candidates do
       [] ->
         :deadend
 
       _ ->
-        Enum.min_by(candidates, fn {c, d} -> build_path(init_args, [c | path], distance + d) end)
+        Enum.reduce(candidates, min_complete_distance, fn {c, d}, distance ->
+          case build_path(init_args, [c | path], current_distance + d, distance) do
+            :deadend -> distance
+            :too_long -> distance
+            i -> i
+          end
+        end)
     end
   end
 end
@@ -61,5 +79,13 @@ end
 "sample.txt"
 |> File.read!()
 |> Day15.init()
-|> Day15.build_path([{0, 0}], 0)
+|> Day15.build_path([{0, 0}], 0, :infinity)
 |> IO.inspect()
+
+"input.txt"
+|> File.read!()
+|> Day15.init()
+|> Day15.build_path([{0, 0}], 0, :infinity)
+|> IO.inspect()
+
+# :timer.kill_after(:timer.seconds(10000), pid)
