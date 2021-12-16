@@ -10,6 +10,36 @@ defmodule Day15 do
     |> solve()
   end
 
+  def do_pt_2(input) do
+    {map, {max_row, max_col}} = init(input)
+
+    map = expand_map(map, max_row + 1, max_col + 1)
+    new_endpoint = {max_row(map), max_col(map)}
+    # solve(:gb_sets.singleton({0, {0, 0}}), map, :infinity, new_endpoint, MapSet.new())
+  end
+
+  defp expand_map(map, width, height) do
+    for rr <- 1..4,
+      cc <- 1..4 do 
+        {rr,cc}
+      end
+    map
+    |> Enum.reduce(map, fn {{r, c}, risk}, acc ->
+      1..4
+      |> Enum.reduce(acc, fn i, nmap ->
+        nrow = r + i * width
+        ncol = c + i * height
+        nrisk = rem(risk + i, 10)
+
+        [{nrow, c}, {r, ncol}]
+        |> Enum.reduce(nmap, fn pos, nnmap ->
+          IO.inspect({pos, nrisk, risk})
+          Map.put(nnmap, pos, nrisk)
+        end)
+      end)
+    end)
+  end
+
   def parse(input) do
     input
     |> String.split()
@@ -24,6 +54,9 @@ defmodule Day15 do
     |> Enum.into(%{})
   end
 
+  defp max_row(map), do: Map.keys(map) |> Enum.map(&elem(&1, 0)) |> Enum.max()
+  defp max_col(map), do: Map.keys(map) |> Enum.map(&elem(&1, 1)) |> Enum.max()
+
   def init(input) do
     map = parse(input)
     max_row = Map.keys(map) |> Enum.map(&elem(&1, 0)) |> Enum.max()
@@ -32,84 +65,42 @@ defmodule Day15 do
     {map, {max_row, max_col}}
   end
 
-  def solve(input) when is_binary(input) do
+  def solve(input) do
     {map, endpoint} = input |> init()
-    solve([:gb_sets.singleton({0, {0, 0}}), map, :infinity, endpoint, MapSet.new()])
+    solve(:gb_sets.singleton({0, {0, 0}}), map, :infinity, endpoint, MapSet.new())
   end
 
-  def solve([queue, map, min_risk, endpoint, seen]) do
-    with {:continue, args} <- solver([queue, map, min_risk, endpoint, seen]),
-         {:ok, updated_args} <- update_args([args, queue, map, min_risk, endpoint, seen]) do
-      solve(updated_args)
-    else
-      {:stop, min_risk} -> min_risk
+  def solve(queue, map, min_risk, endpoint, seen) do
+    IO.inspect(binding())
+
+    cond do
+      :gb_sets.is_empty(queue) ->
+        min_risk
+
+      true ->
+        {{risk, position}, queue} = :gb_sets.take_smallest(queue)
+
+        cond do
+          risk >= min_risk ->
+            solve(queue, map, min_risk, endpoint, seen)
+
+          true ->
+            seen = MapSet.put(seen, position)
+
+            case position do
+              ^endpoint ->
+                solve(queue, map, risk, endpoint, seen)
+
+              _ ->
+                position
+                |> get_neighbors(queue, map, seen, risk)
+                |> solve(map, min_risk, endpoint, seen)
+            end
+        end
     end
   end
 
-  defp solver([queue, map, min_risk, endpoint, seen]) do
-    if :gb_sets.is_empty(queue) do
-      {:stop, min_risk}
-    else
-      {{risk, position}, queue} = :gb_sets.take_smallest(queue)
-
-      cond do
-        risk >= min_risk ->
-          {:continue, :none}
-
-        position == endpoint ->
-          {:continue, [{:seen, position}, {:min_risk, risk}]}
-
-        true ->
-          {:continue, [{:seen, position}, {:queue, position}, {:risk, risk}]}
-      end
-    end
-  end
-
-  defp update_args([:none | args]), do: args
-
-  defp update_args([[{:seen, pos}, {:min_risk, risk}] | args]) do
-    {:ok,
-     args
-     |> List.update_at(4, &MapSet.put(&1, pos))
-     |> List.replace_at(2, risk)}
-  end
-
-  defp update_args([[{:seen, pos}, {:queue, pos}, {:risk, risk}] | args]) do
-    args = List.update_at(args, 4, &MapSet.put(&1, pos))
-
-    {:ok,
-     args
-     |> List.update_at(0, fn _ -> get_neighbors(pos, risk, args) end)}
-  end
-
-  # cond do
-  # :gb_sets.is_empty(queue) ->
-  # min_risk
-
-  # true ->
-  # {{risk, position}, queue} = :gb_sets.take_smallest(queue)
-
-  # cond do
-  # risk >= min_risk ->
-  # solve(queue, map, min_risk, endpoint, seen)
-
-  # true ->
-  # seen = MapSet.put(seen, position)
-
-  # case position do
-  # ^endpoint ->
-  # solve(queue, map, risk, endpoint, seen)
-
-  # _ ->
-  # position
-  # |> get_neighbors(queue, map, seen, risk)
-  # |> solve(map, min_risk, endpoint, seen)
-  # end
-  # end
-  # end
-  # end
-
-  defp get_neighbors(position = {row, col}, risk, [queue, map, min_risk, endpoint, seen]) do
+  defp get_neighbors(position = {row, col}, queue, map, seen, risk) do
     @neighbors
     |> Enum.map(fn {r, c} -> {r + row, c + col} end)
     |> Enum.reduce(queue, fn pos, q ->
@@ -128,10 +119,15 @@ defmodule Day15 do
   end
 end
 
+# "sample.txt"
+# |> File.read!()
+# |> Day15.do_pt_1()
+# |> IO.inspect(label: "sample, pt 1")
+
 "sample.txt"
 |> File.read!()
-|> Day15.do_pt_1()
-|> IO.inspect(label: "sample, pt 1")
+|> Day15.do_pt_2()
+|> IO.inspect(label: "sample, pt 2")
 
 # "input.txt"
 # |> File.read!()
