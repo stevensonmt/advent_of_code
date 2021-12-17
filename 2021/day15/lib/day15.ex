@@ -12,30 +12,29 @@ defmodule Day15 do
 
   def do_pt_2(input) do
     {map, {max_row, max_col}} = init(input)
+    width = max_row + 1
+    height = max_col + 1
 
-    map = expand_map(map, max_row + 1, max_col + 1)
-    new_endpoint = {max_row(map), max_col(map)}
-    # solve(:gb_sets.singleton({0, {0, 0}}), map, :infinity, new_endpoint, MapSet.new())
+    new_map = expand_map(map, width, height)
+    new_endpoint = {max_row(new_map), max_col(new_map)}
+    solve(new_map, new_endpoint)
   end
 
-  defp expand_map(map, width, height) do
-    for rr <- 1..4,
-      cc <- 1..4 do 
-        {rr,cc}
-      end
-    map
-    |> Enum.reduce(map, fn {{r, c}, risk}, acc ->
-      1..4
-      |> Enum.reduce(acc, fn i, nmap ->
-        nrow = r + i * width
-        ncol = c + i * height
-        nrisk = rem(risk + i, 10)
+  def increment_risk(risk, increment) when risk + increment <= 9, do: risk + increment
+  def increment_risk(risk, increment) when risk + increment > 9, do: risk + increment - 9
 
-        [{nrow, c}, {r, ncol}]
-        |> Enum.reduce(nmap, fn pos, nnmap ->
-          IO.inspect({pos, nrisk, risk})
-          Map.put(nnmap, pos, nrisk)
-        end)
+  defp expand_map(map, width, height) do
+    map
+    |> Enum.reduce(map, fn {{r, c}, risk}, map ->
+      1..4
+      |> Enum.reduce(map, fn i, map ->
+        Map.put(map, {r + i * width, c}, increment_risk(risk, i))
+      end)
+    end)
+    |> Enum.reduce(map, fn {{r, c}, risk}, map ->
+      1..4
+      |> Enum.reduce(map, fn i, map ->
+        Map.put(map, {r, c + i * height}, increment_risk(risk, i))
       end)
     end)
   end
@@ -54,8 +53,8 @@ defmodule Day15 do
     |> Enum.into(%{})
   end
 
-  defp max_row(map), do: Map.keys(map) |> Enum.map(&elem(&1, 0)) |> Enum.max()
-  defp max_col(map), do: Map.keys(map) |> Enum.map(&elem(&1, 1)) |> Enum.max()
+  defp max_row(map), do: map |> Enum.map(&elem(elem(&1, 0), 0)) |> Enum.max()
+  defp max_col(map), do: map |> Enum.map(&elem(elem(&1, 0), 1)) |> Enum.max()
 
   def init(input) do
     map = parse(input)
@@ -70,9 +69,15 @@ defmodule Day15 do
     solve(:gb_sets.singleton({0, {0, 0}}), map, :infinity, endpoint, MapSet.new())
   end
 
-  def solve(queue, map, min_risk, endpoint, seen) do
-    IO.inspect(binding())
+  def solve(map, {x, y}) do
+    start = {0, 0}
+    q = :gb_sets.singleton({0, start})
+    best = :infinity
+    seen = MapSet.new()
+    solve(q, map, best, {x, y}, seen)
+  end
 
+  def solve(queue, map, min_risk, endpoint, seen) do
     cond do
       :gb_sets.is_empty(queue) ->
         min_risk
@@ -100,7 +105,7 @@ defmodule Day15 do
     end
   end
 
-  defp get_neighbors(position = {row, col}, queue, map, seen, risk) do
+  defp get_neighbors({row, col}, queue, map, seen, risk) do
     @neighbors
     |> Enum.map(fn {r, c} -> {r + row, c + col} end)
     |> Enum.reduce(queue, fn pos, q ->
@@ -124,7 +129,7 @@ end
 # |> Day15.do_pt_1()
 # |> IO.inspect(label: "sample, pt 1")
 
-"sample.txt"
+"input.txt"
 |> File.read!()
 |> Day15.do_pt_2()
 |> IO.inspect(label: "sample, pt 2")

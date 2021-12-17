@@ -125,5 +125,5 @@ end
 "input.txt"
 |> File.read!()
 |> String.split("\n", trim: true)
-|> Day15Cribbed.parse()
-|> IO.inspect(label: "cribbed")
+|> Day15Cribbed.part2()
+|> IO.inspect()
