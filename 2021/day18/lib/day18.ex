@@ -18,35 +18,46 @@ defmodule Day18 do
     @type step :: :left | :right
 
     @type t :: %__MODULE__{
-            previous: [Tree.t()],
+            previous: t(),
             steps: [step],
             current: Tree.t()
           }
 
     def new(tree = %Tree{}) do
-      %ForestRanger{current: tree, steps: [], previous: []}
+      %ForestRanger{current: tree, steps: [], previous: nil}
     end
 
-    def up(%__MODULE__{previous: []} = ranger), do: {:top, ranger}
+    def up(%__MODULE__{previous: nil} = ranger), do: {:top, ranger}
 
     def up(%__MODULE__{} = ranger) do
-      [last | prev] = ranger.previous
-      [s | steps] = ranger.steps
-      curr = Map.update!(last.current, s, fn _ -> ranger.current end)
-      {:ok, %ForestRanger{previous: prev, steps: steps, current: curr}}
+      # last = ranger.previous
+      # [s | steps] = ranger.steps
+      # curr = Map.put(last.current, s, ranger.current)
+      # prev = last.previous
+
+      # {:ok, %ForestRanger{previous: prev, steps: steps, current: curr}}
+      {:ok,
+       ranger.previous
+       |> Map.update!(:current, fn new_curr ->
+         Map.update!(new_curr, hd(ranger.steps), fn _ -> ranger.current end)
+       end)}
     end
 
     def down(%__MODULE__{current: curr} = ranger, _step) when curr == nil, do: {:bottom, ranger}
 
     def down(%__MODULE__{} = ranger, step) do
-      prev = [ranger | ranger.previous]
+      prev = ranger
       steps = [step | ranger.steps]
       curr = Map.get(ranger.current, step)
       {:ok, %ForestRanger{previous: prev, steps: steps, current: curr}}
     end
 
     def extract_tree(%__MODULE__{} = ranger) do
-      Map.update!(hd(ranger.previous), hd(ranger.steps), ranger.current)
+      # Map.update!(hd(ranger.previous), hd(ranger.steps), ranger.current)
+      case up(ranger) do
+        {:top, r} -> r.current
+        {:ok, r} -> extract_tree(r)
+      end
     end
   end
 
@@ -61,8 +72,6 @@ defmodule Day18 do
   def add_lines([tree | forest]) do
     forest
     |> Enum.reduce(tree, fn t, acc -> add(acc, t) |> reduce() end)
-
-    # |> IO.inspect(label: "addition done")
   end
 
   def do_pt_1(input) do
@@ -97,10 +106,7 @@ defmodule Day18 do
   def new(a, _tree) when is_integer(a), do: a
 
   def add(root, tree) do
-    IO.inspect(binding(), label: "to add")
-
     %Tree{left: root, right: tree}
-    |> IO.inspect(label: "added")
   end
 
   def split(n) when is_integer(n), do: [div(n, 2), ceil(n / 2)] |> new()
@@ -113,15 +119,46 @@ defmodule Day18 do
 
   def split(tree = %Tree{}), do: tree
 
-  def explode(ranger = %ForestRanger{current: curr, steps: [step | steps]}) do
-    ranger
-    |> set_current_zero()
-    |> update_first_left(curr.left)
+  def explode(ranger = %ForestRanger{current: curr}) do
+    meh =
+      ranger
+      |> set_current_zero()
+      |> ForestRanger.up()
+
+    {:ok, meh2} =
+      meh
+      |> update_first_left(curr.left)
+
+    meh3 =
+      meh2
+      |> ForestRanger.extract_tree()
+      |> ForestRanger.new()
+
+    {:ok,
+     ranger.steps
+     |> Enum.take(length(ranger.steps) - 1)
+     |> Enum.reduce_while(meh3, fn step, r ->
+       case ForestRanger.down(r, step) do
+         {:ok, rr} -> {:cont, rr}
+         {:bottom, rr} -> {:halt, rr}
+       end
+     end)}
     |> update_first_right(curr.right)
   end
 
   def set_current_zero(ranger) do
-    {:ok, Map.put(ranger, :current, 0)} |> IO.inspect(label: "zeroed curr")
+    extracted =
+      Map.put(ranger, :current, 0)
+      |> ForestRanger.extract_tree()
+
+    ranger.steps
+    |> Enum.take(length(ranger.steps) - 1)
+    |> Enum.reduce_while(ForestRanger.new(extracted), fn step, r ->
+      case ForestRanger.down(r, step) do
+        {:ok, rr} -> {:cont, rr}
+        {:bottom, rr} -> {:halt, rr}
+      end
+    end)
   end
 
   def update_first_right({:top, ranger}, _), do: ranger
@@ -157,7 +194,7 @@ defmodule Day18 do
   def reduce(tree) do
     tree
     |> explosions()
-    |> IO.inspect(label: "explosions done")
+    |> IO.inspect(label: "THIS")
     |> moar?(tree)
     |> splits()
     |> moar?(tree)
@@ -165,8 +202,11 @@ defmodule Day18 do
 
   def explosions(tree) do
     case dfs(ForestRanger.new(tree), :explode) do
-      {:exploded, r} -> ForestRanger.extract_tree(r)
-      _ -> tree
+      {:exploded, r} ->
+        ForestRanger.extract_tree(r)
+
+      _ ->
+        tree
     end
   end
 
@@ -184,7 +224,7 @@ defmodule Day18 do
   def dfs(n, :explode) when is_integer(n), do: :no_uhsploade
 
   def dfs(ranger = %ForestRanger{steps: steps, current: current}, :explode)
-      when length(steps) == 5 and is_integer(current.left) and is_integer(current.right) do
+      when length(steps) == 4 and is_integer(current.left) and is_integer(current.right) do
     new = explode(ranger)
     {:exploded, new}
   end
@@ -194,14 +234,17 @@ defmodule Day18 do
       {:ok, rngr} ->
         case dfs(rngr, :explode) do
           {:exploded, r} ->
-            r
+            {:exploded, r}
 
           _ ->
             case ForestRanger.down(ranger, :right) do
               {:ok, rngr} ->
                 case dfs(rngr, :explode) do
-                  {:exploded, rngr} -> rngr
-                  _ -> ranger
+                  {:exploded, rngr} ->
+                    {:exploded, rngr}
+
+                  _ ->
+                    ranger
                 end
 
               _ ->
@@ -213,8 +256,11 @@ defmodule Day18 do
         case ForestRanger.down(ranger, :right) do
           {:ok, rngr} ->
             case dfs(rngr, :explode) do
-              {:exploded, rngr} -> rngr
-              _ -> ranger
+              {:exploded, rngr} ->
+                {:exploded, rngr}
+
+              _ ->
+                ranger
             end
 
           _ ->
@@ -288,4 +334,11 @@ smol = "[[1,2],[[3,4],5]]"
 med = "[[[[0,7],4],[[7,8],[6,0]]],[8,1]]"
 med2 = "[[[[7,7],[7,7]],[[8,7],[8,7]]],[[[7,0],[7,7]],9]]
 [[[[4,2],2],6],[8,7]]"
-Day18.do_pt_1(addition_sample) |> IO.inspect(label: "part 1")
+explode = "[[[[[4,3],4],4],[7,[[8,4],9]]],[1,1]]"
+
+Day18.parse(explode)
+|> Day18.add_lines()
+|> Day18.reduce()
+|> IO.inspect()
+
+# Day18.do_pt_1(addition_sample) |> IO.inspect(label: "part 1")
