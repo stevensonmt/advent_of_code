@@ -23,6 +23,10 @@ defmodule Day18 do
             current: Tree.t()
           }
 
+    def new(tree = %Tree{}) do
+      %ForestRanger{current: tree, steps: [], previous: []}
+    end
+
     def up(%__MODULE__{} = ranger) do
       [last | prev] = ranger.previous
       [s | steps] = ranger.steps
@@ -34,6 +38,10 @@ defmodule Day18 do
       prev = [ranger | ranger.previous]
       steps = [step | ranger.steps]
       curr = Map.get(ranger.current, step)
+    end
+
+    def extract_tree(%__MODULE__{} = ranger) do
+      Map.update!(hd(ranger.previous), hd(ranger.steps), ranger.current)
     end
   end
 
@@ -83,6 +91,11 @@ defmodule Day18 do
 
   def add(root, tree) do
     %Tree{left: root, right: tree}
+  end
+
+  def try_explode(tree = %Tree{left: left, right: right}) do
+    ranger = ForestRanger.new(tree)
+    dfs(ranger, :explode)
   end
 
   def split(n) when is_integer(n), do: [div(n, 2), ceil(n / 2)] |> new()
@@ -135,8 +148,8 @@ defmodule Day18 do
   end
 
   def explosions(tree) do
-    case dfs(tree, 4) do
-      {:explode, t} -> explode(t)
+    case dfs(ForestRanger.new(tree), :explode) do
+      {:exploded, r} -> ForestRanger.extract_tree(r)
       _ -> tree
     end
   end
@@ -148,41 +161,21 @@ defmodule Day18 do
     end
   end
 
-  def dfs(nil, n) when is_integer(n), do: :no_uhsploade
-  def dfs(tree = %Tree{}, 0), do: {:explode, tree}
-  def dfs(_, 0), do: :no_uhsploade
-  def dfs(n, _) when is_integer(n), do: :no_uhsploade
-
-  def dfs(tree = %Tree{}, n) when is_integer(n) do
-    case dfs(tree.left, n - 1) do
-      {:explode, t} ->
-        {:explode, t}
-
-      :no_uhsploade ->
-        case dfs(tree.right, n - 1) do
-          {:explode, t} -> {:explode, t}
-          _ -> :no_uhsploade
-        end
-    end
+  def dfs(ranger = %ForestRanger{steps: steps, current: current}, :explode)
+      when length(steps) == 4 do
+    new = explode(ranger)
+    {:exploded, new}
   end
 
-  def dfs(x, :split) when is_integer(x) or x == nil, do: :no_split
+  def dfs(ranger = %ForestRanger{}, :explode) do
+    case dfs(ForestRanger.down(ranger, :left), :explode) do
+      {:exploded, rngr} ->
+        rngr
 
-  def dfs(tree = %Tree{left: left}, :split) when is_integer(left) and left > 9,
-    do: {:split, split(tree)}
-
-  def dfs(tree = %Tree{right: right}, :split) when is_integer(right) and right > 9,
-    do: {:split, split(tree)}
-
-  def dfs(tree = %Tree{}, :split) do
-    case dfs(tree.left, :split) do
-      {:split, t} ->
-        t
-
-      :no_split ->
-        case dfs(tree.right, :split) do
-          {:split, t} -> t
-          :no_split -> :no_split
+      _ ->
+        case dfs(ForestRanger.down(ranger, :right), :explode) do
+          {:exploded, rngr} -> rngr
+          _ -> ranger
         end
     end
   end
