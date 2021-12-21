@@ -27,15 +27,10 @@ defmodule Day18 do
       %ForestRanger{current: tree, steps: [], previous: nil}
     end
 
+    def up({:ok, r}), do: up(r)
     def up(%__MODULE__{previous: nil} = ranger), do: {:top, ranger}
 
     def up(%__MODULE__{} = ranger) do
-      # last = ranger.previous
-      # [s | steps] = ranger.steps
-      # curr = Map.put(last.current, s, ranger.current)
-      # prev = last.previous
-
-      # {:ok, %ForestRanger{previous: prev, steps: steps, current: curr}}
       {:ok,
        ranger.previous
        |> Map.update!(:current, fn new_curr ->
@@ -43,7 +38,8 @@ defmodule Day18 do
        end)}
     end
 
-    def down(%__MODULE__{current: curr} = ranger, _step) when curr == nil, do: {:bottom, ranger}
+    def down(%__MODULE__{current: curr} = ranger, _step) when is_integer(curr) or curr == nil,
+      do: {:bottom, ranger}
 
     def down(%__MODULE__{} = ranger, step) do
       prev = ranger
@@ -53,7 +49,6 @@ defmodule Day18 do
     end
 
     def extract_tree(%__MODULE__{} = ranger) do
-      # Map.update!(hd(ranger.previous), hd(ranger.steps), ranger.current)
       case up(ranger) do
         {:top, r} -> r.current
         {:ok, r} -> extract_tree(r)
@@ -109,51 +104,83 @@ defmodule Day18 do
     %Tree{left: root, right: tree}
   end
 
-  def split(n) when is_integer(n), do: [div(n, 2), ceil(n / 2)] |> new()
+  # def split(n) when is_integer(n), do: [div(n, 2), ceil(n / 2)] |> new()
 
-  def split(tree = %Tree{left: left}) when is_integer(left) and left > 9,
-    do: Map.update!(tree, :left, fn _ -> split(left) end)
+  # def split(tree = %Tree{left: left}) when is_integer(left) and left > 9,
+  # do: Map.update!(tree, :left, fn _ -> split(left) end)
 
-  def split(tree = %Tree{right: right}) when is_integer(right) and right > 9,
-    do: Map.update!(tree, :right, fn _ -> split(right) end)
+  # def split(tree = %Tree{right: right}) when is_integer(right) and right > 9,
+  # do: Map.update!(tree, :right, fn _ -> split(right) end)
 
-  def split(tree = %Tree{}), do: tree
+  # def split(tree = %Tree{}), do: tree
 
-  def explode(ranger = %ForestRanger{current: curr}) do
-    meh =
+  # def split(ranger = %ForestRanger{current: curr}) do
+  # end
+
+  def reload_ranger(ranger) do
+    IO.inspect(binding(), label: "reloading...\n\t&$\t^&\n")
+
+    reset =
       ranger
-      |> set_current_zero()
-      |> ForestRanger.up()
-
-    {:ok, meh2} =
-      meh
-      |> update_first_left(curr.left)
-
-    meh3 =
-      meh2
       |> ForestRanger.extract_tree()
       |> ForestRanger.new()
 
-    {:ok,
-     ranger.steps
-     |> Enum.take(length(ranger.steps) - 1)
-     |> Enum.reduce_while(meh3, fn step, r ->
-       case ForestRanger.down(r, step) do
-         {:ok, rr} -> {:cont, rr}
-         {:bottom, rr} -> {:halt, rr}
-       end
-     end)}
-    |> update_first_right(curr.right)
+    ranger.steps
+    |> Enum.reverse()
+    |> Enum.reduce_while(reset, fn step, r ->
+      case ForestRanger.down(r, step) do
+        {:ok, rr} -> {:cont, rr}
+        {:bottom, rr} -> {:halt, rr}
+      end
+    end)
+    |> IO.inspect(label: "look at steps after relaoad")
   end
 
-  def set_current_zero(ranger) do
-    extracted =
-      Map.put(ranger, :current, 0)
-      |> ForestRanger.extract_tree()
+  def explode(ranger = %ForestRanger{current: curr}) do
+    zeroed =
+      ranger
+      |> set_current_zero()
+      |> IO.inspect(label: "ZEROED")
+      |> reload_ranger()
+      |> IO.inspect(label: "reloaded")
+
+    go_up_if_last_left =
+      if hd(ranger.steps) == :left do
+        ForestRanger.up(zeroed) |> ForestRanger.up()
+      else
+        {:ok, zeroed}
+      end
+      |> IO.inspect(label: "if left")
+
+    {:ok, updated_left} =
+      go_up_if_last_left
+      |> update_first_left(curr.left)
+      |> IO.inspect(label: "updated left")
+
+    reset =
+      updated_left
+      |> reload_ranger()
+      |> IO.inspect(label: "reloaded again")
+
+    go_up_if_last_right =
+      if hd(ranger.steps) == :right do
+        ForestRanger.up(reset)
+      else
+        ForestRanger.up(reset)
+        # {:ok, reset}
+      end
+
+    updated_right =
+      go_up_if_last_right
+      |> update_first_right(curr.right)
+      |> IO.inspect(label: "righted")
+
+    raise "bs"
+    reset2 = updated_right |> ForestRanger.extract_tree() |> ForestRanger.new()
 
     ranger.steps
-    |> Enum.take(length(ranger.steps) - 1)
-    |> Enum.reduce_while(ForestRanger.new(extracted), fn step, r ->
+    |> Enum.reverse()
+    |> Enum.reduce_while(reset2, fn step, r ->
       case ForestRanger.down(r, step) do
         {:ok, rr} -> {:cont, rr}
         {:bottom, rr} -> {:halt, rr}
@@ -161,15 +188,19 @@ defmodule Day18 do
     end)
   end
 
-  def update_first_right({:top, ranger}, _), do: ranger
+  def set_current_zero(ranger) do
+    Map.put(ranger, :current, 0)
+  end
+
+  def update_first_right({:top, ranger}, val), do: dfs(ranger, :update_right, val)
 
   def update_first_right({:ok, ranger = %ForestRanger{current: curr}}, val) do
     cond do
-      is_integer(curr.right) ->
-        Map.update!(ranger, :current, &Map.put(&1, :right, curr.right + val))
-
-      curr.right == nil ->
+      is_integer(curr) or curr.right == nil ->
         ranger
+
+      is_integer(curr.right) ->
+        Map.update!(ranger, :current, fn c -> Map.put(c, :right, curr.right + val) end)
 
       true ->
         update_first_right(ForestRanger.up(ranger), val)
@@ -186,15 +217,35 @@ defmodule Day18 do
       curr.left == nil ->
         {:ok, ranger}
 
+      # is_map(curr.left) ->
+      # update_right(ForestRanger.down(ranger, :left), val)
+
       true ->
         update_first_left(ForestRanger.up(ranger), val)
+    end
+  end
+
+  def update_right({:ok, r}, val), do: update_right(r, val)
+
+  def update_right(ranger = %ForestRanger{current: curr}, val) do
+    cond do
+      is_integer(curr.right) ->
+        {:ok, Map.update!(ranger, :current, &Map.put(&1, :right, curr.right + val))}
+
+      is_nil(curr.right) ->
+        {:ok, ranger}
+
+      is_map(curr.right) ->
+        update_right(ForestRanger.down(ranger, :right), val)
+
+      true ->
+        raise "Something scwewy"
     end
   end
 
   def reduce(tree) do
     tree
     |> explosions()
-    |> IO.inspect(label: "THIS")
     |> moar?(tree)
     |> splits()
     |> moar?(tree)
@@ -219,8 +270,8 @@ defmodule Day18 do
 
   def dfs(tree = %Tree{}, op), do: dfs(ForestRanger.new(tree), op)
 
-  def dfs(ranger = %ForestRanger{current: nil}, :explode), do: :no_uhsploade
-  def dfs(ranger = %ForestRanger{current: n}, :explode) when is_integer(n), do: :no_uhsploade
+  def dfs(_ranger = %ForestRanger{current: nil}, :explode), do: :no_uhsploade
+  def dfs(_ranger = %ForestRanger{current: n}, :explode) when is_integer(n), do: :no_uhsploade
   def dfs(n, :explode) when is_integer(n), do: :no_uhsploade
 
   def dfs(ranger = %ForestRanger{steps: steps, current: current}, :explode)
@@ -269,12 +320,19 @@ defmodule Day18 do
     end
   end
 
-  def dfs(ranger = %ForestRanger{current: n}, :split) when is_integer(n) and n > 10 do
+  def dfs(n, :split) when is_integer(n) and n > 10 do
     new = new([div(n, 2), ceil(n / 2)])
-    Map.update!(ranger, :current, new)
+    {:split, new}
   end
 
-  def dfs(ranger = %ForestRanger{current: n}, :split) when is_integer(n) or n == nil,
+  def dfs(n, :split) when is_integer(n), do: :no_split
+
+  def dfs(ranger = %ForestRanger{current: n}, :split) when is_integer(n) and n > 10 do
+    new = new([div(n, 2), ceil(n / 2)])
+    {:split, Map.put(ranger, :current, new)}
+  end
+
+  def dfs(_ranger = %ForestRanger{current: n}, :split) when is_integer(n) or n == nil,
     do: :no_split
 
   def dfs(ranger = %ForestRanger{}, :split) do
@@ -282,13 +340,13 @@ defmodule Day18 do
       {:ok, rngr} ->
         case dfs(rngr, :split) do
           {:split, r} ->
-            r
+            {:split, r}
 
           _ ->
             case ForestRanger.down(ranger, :right) do
               {:ok, rngr} ->
                 case dfs(rngr, :split) do
-                  {:split, r} -> r
+                  {:split, r} -> {:split, r}
                   _ -> ranger
                 end
             end
@@ -305,6 +363,25 @@ defmodule Day18 do
     end
   end
 
+  def dfs(ranger, :update_right, val) do
+    case ForestRanger.down(ranger, :right) do
+      {:ok, r} ->
+        cond do
+          is_integer(r.current) ->
+            Map.update!(r, :current, fn c -> c + val end)
+
+          is_integer(r.current.left) ->
+            Map.update!(r, :current, fn c -> Map.update!(c, :left, fn l -> l + val end) end)
+
+          true ->
+            dfs(ForestRanger.down(ranger, :right), :update_right, val)
+        end
+
+      _ ->
+        ranger
+    end
+  end
+
   def moar?(new, old) do
     if new == old do
       new
@@ -318,22 +395,22 @@ defmodule Day18 do
   def magnitude(%Tree{left: left, right: right}), do: 3 * magnitude(left) + 2 * magnitude(right)
 end
 
-sample = "[[[0,[5,8]],[[1,7],[9,6]]],[[4,[1,2]],[[1,4],2]]]
-[[[5,[2,8]],4],[5,[[9,9],0]]]
-[6,[[[6,2],[5,6]],[[7,6],[4,7]]]]
-[[[6,[0,7]],[0,9]],[4,[9,[9,0]]]]
-[[[7,[6,4]],[3,[1,3]]],[[[5,5],1],9]]
-[[6,[[7,3],[3,2]]],[[[3,8],[5,7]],4]]
-[[[[5,4],[7,7]],8],[[8,3],8]]
-[[9,3],[[9,9],[6,[4,9]]]]
-[[2,[[7,7],7]],[[5,8],[[9,3],[0,2]]]]
-[[[[5,2],5],[8,[3,7]]],[[5,[7,5]],[4,4]]]"
+# sample = "[[[0,[5,8]],[[1,7],[9,6]]],[[4,[1,2]],[[1,4],2]]]
+# [[[5,[2,8]],4],[5,[[9,9],0]]]
+# [6,[[[6,2],[5,6]],[[7,6],[4,7]]]]
+# [[[6,[0,7]],[0,9]],[4,[9,[9,0]]]]
+# [[[7,[6,4]],[3,[1,3]]],[[[5,5],1],9]]
+# [[6,[[7,3],[3,2]]],[[[3,8],[5,7]],4]]
+# [[[[5,4],[7,7]],8],[[8,3],8]]
+# [[9,3],[[9,9],[6,[4,9]]]]
+# [[2,[[7,7],7]],[[5,8],[[9,3],[0,2]]]]
+# [[[[5,2],5],[8,[3,7]]],[[5,[7,5]],[4,4]]]"
 
-addition_sample = "[[[[4,3],4],4],[7,[[8,4],9]]]\n[1,1]"
-smol = "[[1,2],[[3,4],5]]"
-med = "[[[[0,7],4],[[7,8],[6,0]]],[8,1]]"
-med2 = "[[[[7,7],[7,7]],[[8,7],[8,7]]],[[[7,0],[7,7]],9]]
-[[[[4,2],2],6],[8,7]]"
+# addition_sample = "[[[[4,3],4],4],[7,[[8,4],9]]]\n[1,1]"
+# smol = "[[1,2],[[3,4],5]]"
+# med = "[[[[0,7],4],[[7,8],[6,0]]],[8,1]]"
+# med2 = "[[[[7,7],[7,7]],[[8,7],[8,7]]],[[[7,0],[7,7]],9]]
+# [[[[4,2],2],6],[8,7]]"
 explode = "[[[[[4,3],4],4],[7,[[8,4],9]]],[1,1]]"
 
 Day18.parse(explode)
