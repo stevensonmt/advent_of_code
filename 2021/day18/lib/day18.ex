@@ -10,6 +10,33 @@ defmodule Day18 do
             left: nil | integer() | t(),
             right: nil | integer() | t()
           }
+    def new() do
+      %Tree{}
+    end
+
+    def new(n, tree \\ %Tree{})
+
+    def new([a, b], tree) do
+      case {is_integer(a), is_integer(b)} do
+        {true, true} ->
+          %Tree{tree | left: a, right: b}
+
+        {true, false} ->
+          %Tree{tree | left: a, right: new(b)}
+
+        {false, true} ->
+          %Tree{tree | left: new(a), right: b}
+
+        {false, false} ->
+          %Tree{tree | left: new(a), right: new(b)}
+      end
+    end
+
+    def new(a, _tree) when is_integer(a), do: a
+
+    def add(root, tree) do
+      %Tree{left: root, right: tree}
+    end
   end
 
   defmodule ForestRanger do
@@ -38,6 +65,8 @@ defmodule Day18 do
        end)}
     end
 
+    def down({:ok, r}, s), do: down(r, s)
+
     def down(%__MODULE__{current: curr} = ranger, _step) when is_integer(curr) or curr == nil,
       do: {:bottom, ranger}
 
@@ -57,18 +86,22 @@ defmodule Day18 do
   end
 
   @type tree :: Tree.t()
+  @type ranger :: ForestRanger.t()
 
+  @spec parse(String.t()) :: [tree()]
   def parse(input) do
     input
     |> String.split()
-    |> Enum.map(&(Code.eval_string(&1) |> elem(0) |> new()))
+    |> Enum.map(&(Code.eval_string(&1) |> elem(0) |> Tree.new()))
   end
 
+  @spec add_lines([tree()]) :: tree()
   def add_lines([tree | forest]) do
     forest
-    |> Enum.reduce(tree, fn t, acc -> add(acc, t) |> reduce() end)
+    |> Enum.reduce(tree, fn t, acc -> Tree.add(acc, t) |> reduce() end)
   end
 
+  @spec do_pt_1(String.t()) :: integer
   def do_pt_1(input) do
     input
     |> parse()
@@ -76,182 +109,132 @@ defmodule Day18 do
     |> magnitude()
   end
 
-  def new() do
-    %Tree{}
+  @spec explode(ranger()) :: ranger()
+  def explode(ranger = %ForestRanger{current: curr}) do
+    ranger
+    |> set_current_zero()
+    |> update_nearest_left_int(curr.left)
+    |> elem(1)
+    |> update_nearest_right_int(curr.right)
   end
 
-  def new(n, tree \\ %Tree{})
+  def update_nearest_left_int(ranger = %ForestRanger{current: curr}, val) do
+    {lefts, rest} = Enum.split_while(ranger.steps, fn x -> x == :left end)
 
-  def new([a, b], tree) do
-    case {is_integer(a), is_integer(b)} do
-      {true, true} ->
-        %Tree{tree | left: a, right: b}
+    rev_lefts =
+      case Enum.reduce(lefts, ranger, fn _step, r -> ForestRanger.up(r) end) do
+        {:ok, r_l} -> r_l
+        _ -> ranger
+      end
 
-      {true, false} ->
-        %Tree{tree | left: a, right: new(b)}
+    if is_nil(rev_lefts.previous) do
+      {:ok, ranger}
+    else
+      {side, {:ok, found}} =
+        rest
+        |> Enum.take(1)
+        |> Enum.reduce(rev_lefts, fn _step, r ->
+          ForestRanger.up(r)
+        end)
+        |> closest_left_int()
 
-      {false, true} ->
-        %Tree{tree | left: new(a), right: b}
-
-      {false, false} ->
-        %Tree{tree | left: new(a), right: new(b)}
+      Map.update!(found, :current, fn c ->
+        Map.update!(c, side, fn n ->
+          n + val
+        end)
+      end)
+      |> ForestRanger.down(:right)
     end
   end
 
-  def new(a, _tree) when is_integer(a), do: a
+  def closest_left_int({:ok, r}), do: closest_left_int(r)
 
-  def add(root, tree) do
-    %Tree{left: root, right: tree}
+  def closest_left_int(ranger) do
+    cond do
+      is_integer(ranger.current) ->
+        {:right, ForestRanger.up(ranger)}
+
+      is_integer(ranger.current.left) ->
+        {:left, {:ok, ranger}}
+
+      true ->
+        closest_left_int(ForestRanger.down(ranger, :right))
+    end
   end
 
-  # def split(n) when is_integer(n), do: [div(n, 2), ceil(n / 2)] |> new()
+  def update_nearest_right_int(ranger = %ForestRanger{current: curr}, val) do
+    {rights, rest} = Enum.split_while(ranger.steps, fn x -> x == :right end)
 
-  # def split(tree = %Tree{left: left}) when is_integer(left) and left > 9,
-  # do: Map.update!(tree, :left, fn _ -> split(left) end)
-
-  # def split(tree = %Tree{right: right}) when is_integer(right) and right > 9,
-  # do: Map.update!(tree, :right, fn _ -> split(right) end)
-
-  # def split(tree = %Tree{}), do: tree
-
-  # def split(ranger = %ForestRanger{current: curr}) do
-  # end
-
-  def reload_ranger(ranger) do
-    IO.inspect(binding(), label: "reloading...\n\t&$\t^&\n")
-
-    reset =
-      ranger
-      |> ForestRanger.extract_tree()
-      |> ForestRanger.new()
-
-    ranger.steps
-    |> Enum.reverse()
-    |> Enum.reduce_while(reset, fn step, r ->
-      case ForestRanger.down(r, step) do
-        {:ok, rr} -> {:cont, rr}
-        {:bottom, rr} -> {:halt, rr}
+    rev_rights =
+      case Enum.reduce(rights, ranger, fn _step, r -> ForestRanger.up(r) end) do
+        {:ok, r_r} -> r_r
+        _ -> ranger
       end
-    end)
-    |> IO.inspect(label: "look at steps after relaoad")
+
+    if is_nil(rev_rights.previous) do
+      {:ok, ranger}
+    else
+      {:ok, found} =
+        rev_rights
+        |> ForestRanger.up()
+        |> ForestRanger.down(:right)
+
+      if is_integer(found.current) do
+        Map.update!(elem(ForestRanger.up(found), 1), :current, fn c ->
+          Map.update!(c, :right, fn n ->
+            n + val
+          end)
+        end)
+        |> ForestRanger.down(:left)
+      else
+        found
+        |> closest_right_int()
+        |> elem(1)
+        |> Map.update!(:current, fn c ->
+          Map.update!(c, :left, fn n ->
+            n + val
+          end)
+        end)
+        |> ForestRanger.down(:left)
+      end
+    end
   end
 
-  def explode(ranger = %ForestRanger{current: curr}) do
-    zeroed =
-      ranger
-      |> set_current_zero()
-      |> IO.inspect(label: "ZEROED")
-      |> reload_ranger()
-      |> IO.inspect(label: "reloaded")
+  def closest_right_int({:ok, r}), do: closest_right_int(r)
 
-    go_up_if_last_left =
-      if hd(ranger.steps) == :left do
-        ForestRanger.up(zeroed) |> ForestRanger.up()
-      else
-        {:ok, zeroed}
-      end
-      |> IO.inspect(label: "if left")
+  def closest_right_int(ranger) do
+    cond do
+      is_integer(ranger.current) ->
+        ForestRanger.up(ranger)
 
-    {:ok, updated_left} =
-      go_up_if_last_left
-      |> update_first_left(curr.left)
-      |> IO.inspect(label: "updated left")
+      # is_integer(ranger.current.right) ->
+      # {:right, {:ok, ranger}}
 
-    reset =
-      updated_left
-      |> reload_ranger()
-      |> IO.inspect(label: "reloaded again")
+      true ->
+        closest_right_int(ForestRanger.down(ranger, :left))
+    end
+  end
 
-    go_up_if_last_right =
-      if hd(ranger.steps) == :right do
-        ForestRanger.up(reset)
-      else
-        ForestRanger.up(reset)
-        # {:ok, reset}
-      end
+  @spec split(ranger()) :: ranger()
+  def split(ranger = %ForestRanger{current: val}) do
+    split = [div(val, 2), ceil(val / 2)] |> Tree.new()
 
-    updated_right =
-      go_up_if_last_right
-      |> update_first_right(curr.right)
-      |> IO.inspect(label: "righted")
-
-    raise "bs"
-    reset2 = updated_right |> ForestRanger.extract_tree() |> ForestRanger.new()
-
-    ranger.steps
-    |> Enum.reverse()
-    |> Enum.reduce_while(reset2, fn step, r ->
-      case ForestRanger.down(r, step) do
-        {:ok, rr} -> {:cont, rr}
-        {:bottom, rr} -> {:halt, rr}
-      end
-    end)
+    Map.put(ranger, :current, split)
   end
 
   def set_current_zero(ranger) do
     Map.put(ranger, :current, 0)
   end
 
-  def update_first_right({:top, ranger}, val), do: dfs(ranger, :update_right, val)
-
-  def update_first_right({:ok, ranger = %ForestRanger{current: curr}}, val) do
-    cond do
-      is_integer(curr) or curr.right == nil ->
-        ranger
-
-      is_integer(curr.right) ->
-        Map.update!(ranger, :current, fn c -> Map.put(c, :right, curr.right + val) end)
-
-      true ->
-        update_first_right(ForestRanger.up(ranger), val)
-    end
-  end
-
-  def update_first_left({:top, ranger}, _), do: {:ok, ranger}
-
-  def update_first_left({:ok, ranger = %ForestRanger{current: curr}}, val) do
-    cond do
-      is_integer(curr.left) ->
-        {:ok, Map.update!(ranger, :current, &Map.put(&1, :left, curr.left + val))}
-
-      curr.left == nil ->
-        {:ok, ranger}
-
-      # is_map(curr.left) ->
-      # update_right(ForestRanger.down(ranger, :left), val)
-
-      true ->
-        update_first_left(ForestRanger.up(ranger), val)
-    end
-  end
-
-  def update_right({:ok, r}, val), do: update_right(r, val)
-
-  def update_right(ranger = %ForestRanger{current: curr}, val) do
-    cond do
-      is_integer(curr.right) ->
-        {:ok, Map.update!(ranger, :current, &Map.put(&1, :right, curr.right + val))}
-
-      is_nil(curr.right) ->
-        {:ok, ranger}
-
-      is_map(curr.right) ->
-        update_right(ForestRanger.down(ranger, :right), val)
-
-      true ->
-        raise "Something scwewy"
-    end
-  end
-
   def reduce(tree) do
     tree
-    |> explosions()
+    |> try_explode()
     |> moar?(tree)
-    |> splits()
+    |> try_split()
     |> moar?(tree)
   end
 
-  def explosions(tree) do
+  def try_explode(tree) do
     case dfs(ForestRanger.new(tree), :explode) do
       {:exploded, r} ->
         ForestRanger.extract_tree(r)
@@ -261,7 +244,7 @@ defmodule Day18 do
     end
   end
 
-  def splits(tree) do
+  def try_split(tree) do
     case dfs(ForestRanger.new(tree), :split) do
       {:split, r} -> ForestRanger.extract_tree(r)
       _ -> tree
@@ -275,7 +258,7 @@ defmodule Day18 do
   def dfs(n, :explode) when is_integer(n), do: :no_uhsploade
 
   def dfs(ranger = %ForestRanger{steps: steps, current: current}, :explode)
-      when length(steps) == 4 and is_integer(current.left) and is_integer(current.right) do
+      when length(steps) >= 4 and is_integer(current.left) and is_integer(current.right) do
     new = explode(ranger)
     {:exploded, new}
   end
@@ -321,14 +304,14 @@ defmodule Day18 do
   end
 
   def dfs(n, :split) when is_integer(n) and n > 10 do
-    new = new([div(n, 2), ceil(n / 2)])
+    new = Tree.new([div(n, 2), ceil(n / 2)])
     {:split, new}
   end
 
   def dfs(n, :split) when is_integer(n), do: :no_split
 
   def dfs(ranger = %ForestRanger{current: n}, :split) when is_integer(n) and n > 10 do
-    new = new([div(n, 2), ceil(n / 2)])
+    new = Tree.new([div(n, 2), ceil(n / 2)])
     {:split, Map.put(ranger, :current, new)}
   end
 
@@ -363,25 +346,6 @@ defmodule Day18 do
     end
   end
 
-  def dfs(ranger, :update_right, val) do
-    case ForestRanger.down(ranger, :right) do
-      {:ok, r} ->
-        cond do
-          is_integer(r.current) ->
-            Map.update!(r, :current, fn c -> c + val end)
-
-          is_integer(r.current.left) ->
-            Map.update!(r, :current, fn c -> Map.update!(c, :left, fn l -> l + val end) end)
-
-          true ->
-            dfs(ForestRanger.down(ranger, :right), :update_right, val)
-        end
-
-      _ ->
-        ranger
-    end
-  end
-
   def moar?(new, old) do
     if new == old do
       new
@@ -395,27 +359,4 @@ defmodule Day18 do
   def magnitude(%Tree{left: left, right: right}), do: 3 * magnitude(left) + 2 * magnitude(right)
 end
 
-# sample = "[[[0,[5,8]],[[1,7],[9,6]]],[[4,[1,2]],[[1,4],2]]]
-# [[[5,[2,8]],4],[5,[[9,9],0]]]
-# [6,[[[6,2],[5,6]],[[7,6],[4,7]]]]
-# [[[6,[0,7]],[0,9]],[4,[9,[9,0]]]]
-# [[[7,[6,4]],[3,[1,3]]],[[[5,5],1],9]]
-# [[6,[[7,3],[3,2]]],[[[3,8],[5,7]],4]]
-# [[[[5,4],[7,7]],8],[[8,3],8]]
-# [[9,3],[[9,9],[6,[4,9]]]]
-# [[2,[[7,7],7]],[[5,8],[[9,3],[0,2]]]]
-# [[[[5,2],5],[8,[3,7]]],[[5,[7,5]],[4,4]]]"
-
-# addition_sample = "[[[[4,3],4],4],[7,[[8,4],9]]]\n[1,1]"
-# smol = "[[1,2],[[3,4],5]]"
-# med = "[[[[0,7],4],[[7,8],[6,0]]],[8,1]]"
-# med2 = "[[[[7,7],[7,7]],[[8,7],[8,7]]],[[[7,0],[7,7]],9]]
-# [[[[4,2],2],6],[8,7]]"
-explode = "[[[[[4,3],4],4],[7,[[8,4],9]]],[1,1]]"
-
-Day18.parse(explode)
-|> Day18.add_lines()
-|> Day18.reduce()
-|> IO.inspect()
-
-# Day18.do_pt_1(addition_sample) |> IO.inspect(label: "part 1")
+# Day18.do_pt_1(input) |> IO.inspect(label: "part 1")
