@@ -98,7 +98,10 @@ defmodule Day18 do
   @spec add_lines([tree()]) :: tree()
   def add_lines([tree | forest]) do
     forest
-    |> Enum.reduce(tree, fn t, acc -> Tree.add(acc, t) |> reduce() end)
+    |> Enum.reduce(tree, fn t, acc ->
+      acc = Tree.add(acc, t) |> reduce()
+      acc
+    end)
   end
 
   @spec do_pt_1(String.t()) :: integer
@@ -229,8 +232,10 @@ defmodule Day18 do
   def reduce(tree) do
     tree
     |> try_explode()
+    |> IO.inspect(label: "exploded")
     |> moar?(tree)
     |> try_split()
+    |> IO.inspect(label: "split")
     |> moar?(tree)
   end
 
@@ -259,7 +264,7 @@ defmodule Day18 do
 
   def dfs(ranger = %ForestRanger{steps: steps, current: current}, :explode)
       when length(steps) >= 4 and is_integer(current.left) and is_integer(current.right) do
-    new = explode(ranger)
+    {:ok, new} = explode(ranger)
     {:exploded, new}
   end
 

@@ -4,6 +4,18 @@ defmodule Day18Test do
   alias Day18.Tree
   alias Day18.ForestRanger
 
+  @mezz_example "[[[0,[4,5]],[0,0]],[[[4,5],[2,6]],[9,5]]]
+  [7,[[[3,7],[4,3]],[[6,3],[8,8]]]]"
+
+  # [[2,[[0,8],[3,4]]],[[[6,7],1],[7,[1,6]]]]
+  # [[[[2,4],7],[6,[0,5]]],[[[6,8],[2,8]],[[2,1],[4,5]]]]
+  # [7,[5,[[3,8],[1,4]]]]
+  # [[2,[2,2]],[8,[8,1]]]
+  # [2,9]
+  # [1,[[[9,3],9],[[9,0],[0,7]]]]
+  # [[[5,[7,4]],7],1]
+  # [[[[4,2],2],6],[8,7]]"
+
   @sample "[[[0,[5,8]],[[1,7],[9,6]]],[[4,[1,2]],[[1,4],2]]]
  [[[5,[2,8]],4],[5,[[9,9],0]]]
  [6,[[[6,2],[5,6]],[[7,6],[4,7]]]]
@@ -23,6 +35,7 @@ defmodule Day18Test do
   @explode "[[[[[4,3],4],4],[7,[[8,4],9]]],[1,1]]"
   @split "[[[[0,7],4],[15,[0,13]]],[1,1]]"
 
+  @tag :ignore
   test "parse smol sample" do
     assert Day18.parse(@smol) == [
              %Tree{
@@ -32,6 +45,7 @@ defmodule Day18Test do
            ]
   end
 
+  @tag :ignore
   test "parse explode sample" do
     assert Day18.parse(@explode) == [
              %Tree{
@@ -65,10 +79,12 @@ defmodule Day18Test do
            ]
   end
 
+  @tag :ignore
   test "simple addition" do
     assert [Day18.parse("[1,2]\n[[3,4],5]") |> Day18.add_lines()] == Day18.parse(@smol)
   end
 
+  @tag :ignore
   test "extracting ranger == extracting up(ranger)" do
     ranger = Day18.parse(@smol) |> Day18.add_lines() |> ForestRanger.new()
     downl = ForestRanger.down(ranger, :left) |> elem(1)
@@ -80,6 +96,7 @@ defmodule Day18Test do
     assert ForestRanger.extract_tree(ranger) == ForestRanger.extract_tree(topped)
   end
 
+  @tag :ignore
   test "set ranger.current zero produces new tree when extracted" do
     ranger = Day18.parse(@smol) |> Day18.add_lines() |> ForestRanger.new()
     downl = ForestRanger.down(ranger, :left) |> elem(1)
@@ -103,7 +120,7 @@ defmodule Day18Test do
 
     assert ranger.current.left == 6
 
-    update_nearest_left_int = Day18.update_nearest_left_int(ranger, 6)
+    update_nearest_left_int = Day18.update_nearest_left_int(ranger, 6) |> elem(1)
 
     assert update_nearest_left_int.current.left == 6
 
@@ -113,7 +130,7 @@ defmodule Day18Test do
              Day18.parse("[[[[0,7],4],[[7,8],[6,[6,7]]]],[1,1]]") |> Day18.add_lines()
   end
 
-  # @tag :ignore
+  @tag :ignore
   test "simple explode" do
     exploding =
       Day18.parse("[[[[0,7],4],[[7,8],[0,[6,7]]]],[1,1]]")
@@ -132,6 +149,7 @@ defmodule Day18Test do
              Day18.parse("[[[[0,7],4],[[7,8],[6,0]]],[8,1]]") |> Day18.add_lines()
   end
 
+  @tag :ignore
   test "another simple explode" do
     exploding =
       Day18.parse("[[[[[4,3],4],4],[7,[[8,4],9]]],[1,1]]")
@@ -156,13 +174,20 @@ defmodule Day18Test do
 
   @tag :ignore
   test "simple split" do
-    assert Day18.parse(@split) |> Day18.add_lines() |> Day18.split() ==
-             Day18.parse("[[[[0,7],4],[[7,8],[0,13]]],[1,1]]")
+    assert Day18.parse(@split) |> Day18.add_lines() |> Day18.try_split() ==
+             Day18.parse("[[[[0,7],4],[[7,8],[0,13]]],[1,1]]") |> Day18.add_lines()
   end
 
   @tag :ignore
-  test "try_split finds first splitting node" do
-    assert Day18.parse(@split) |> Day18.add_lines() |> Day18.try_split() ==
-             Day18.parse("[[[[0,7],4],[[7,8],[0,13]]],[1,1]]")
+  test "reduce explodes and splits" do
+    assert Day18.parse(@split) |> Day18.add_lines() |> Day18.reduce() ==
+             Day18.parse("[[[[0,7],4],[[7,8],[6,0]]],[8,1]]") |> Day18.add_lines()
+  end
+
+  # @tag :ignore
+  test "mezz sample final sum" do
+    assert Day18.parse(@mezz_example) |> Day18.add_lines() |> Day18.reduce() ==
+             Day18.parse("[[[[4,0],[5,4]],[[7,7],[6,0]]],[[8,[7,7]],[[7,9],[5,0]]]]")
+             |> Day18.add_lines()
   end
 end
