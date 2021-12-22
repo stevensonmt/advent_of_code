@@ -114,39 +114,35 @@ defmodule Day18 do
 
   @spec explode(ranger()) :: ranger()
   def explode(ranger = %ForestRanger{current: curr}) do
-    ranger
-    |> set_current_zero()
-    |> update_nearest_left_int(curr.left)
-    |> elem(1)
-    |> update_nearest_right_int(curr.right)
+    {:ok,
+     ranger
+     |> set_current_zero()
+     |> update_nearest_left_int(curr.left)
+     |> update_nearest_right_int(curr.right)}
   end
 
   def update_nearest_left_int(ranger = %ForestRanger{current: curr}, val) do
-    {lefts, rest} = Enum.split_while(ranger.steps, fn x -> x == :left end)
-
     rev_lefts =
-      case Enum.reduce(lefts, ranger, fn _step, r -> ForestRanger.up(r) end) do
-        {:ok, r_l} -> r_l
-        _ -> ranger
-      end
-
-    if is_nil(rev_lefts.previous) do
-      {:ok, ranger}
-    else
-      {side, {:ok, found}} =
-        rest
-        |> Enum.take(1)
-        |> Enum.reduce(rev_lefts, fn _step, r ->
-          ForestRanger.up(r)
-        end)
-        |> closest_left_int()
-
-      Map.update!(found, :current, fn c ->
-        Map.update!(c, side, fn n ->
-          n + val
-        end)
+      ranger.steps
+      |> Enum.reduce_while(ranger, fn step, acc ->
+        case {step, ForestRanger.up(acc)} do
+          {:left, {:ok, r}} -> {:cont, r}
+          {_, {_, r}} -> {:halt, r}
+        end
       end)
-      |> ForestRanger.down(:right)
+
+    case rev_lefts.previous do
+      nil ->
+        ranger
+
+      _ ->
+        {side, {:ok, found}} = closest_left_int(rev_lefts)
+
+        Map.update!(found, :current, fn c ->
+          Map.update!(c, side, fn n ->
+            n + val
+          end)
+        end)
     end
   end
 
@@ -166,40 +162,46 @@ defmodule Day18 do
   end
 
   def update_nearest_right_int(ranger = %ForestRanger{current: curr}, val) do
-    {rights, rest} = Enum.split_while(ranger.steps, fn x -> x == :right end)
-
     rev_rights =
-      case Enum.reduce(rights, ranger, fn _step, r -> ForestRanger.up(r) end) do
-        {:ok, r_r} -> r_r
-        _ -> ranger
-      end
+      ranger.steps
+      |> Enum.reduce_while(ranger, fn step, acc ->
+        case {step, ForestRanger.up(acc)} do
+          {:right, {:ok, r}} -> {:cont, r}
+          {_, {_, r}} -> {:halt, r}
+        end
+      end)
+
+    IO.inspect(rev_rights == ForestRanger.up(ranger) |> elem(1))
 
     if is_nil(rev_rights.previous) do
-      {:ok, ranger}
+      ranger
     else
-      {:ok, found} =
-        rev_rights
-        |> ForestRanger.up()
-        |> ForestRanger.down(:right)
+      {side, {:ok, found}} = closest_right_int(rev_rights)
 
-      if is_integer(found.current) do
-        Map.update!(elem(ForestRanger.up(found), 1), :current, fn c ->
-          Map.update!(c, :right, fn n ->
-            n + val
-          end)
+      Map.update!(found, :current, fn c ->
+        Map.update!(c, side, fn n ->
+          n + val
         end)
-        |> ForestRanger.down(:left)
-      else
-        found
-        |> closest_right_int()
-        |> elem(1)
-        |> Map.update!(:current, fn c ->
-          Map.update!(c, :left, fn n ->
-            n + val
-          end)
-        end)
-        |> ForestRanger.down(:left)
-      end
+      end)
+
+      # if is_integer(found.current) do
+      # Map.update!(elem(ForestRanger.up(found), 1), :current, fn c ->
+      # Map.update!(c, :right, fn n ->
+      # n + val
+      # end)
+      # end)
+      # |> ForestRanger.down(:left)
+      # else
+      # found
+      # |> closest_right_int()
+      # |> elem(1)
+      # |> Map.update!(:current, fn c ->
+      # Map.update!(c, :left, fn n ->
+      # n + val
+      # end)
+      # end)
+      # |> ForestRanger.down(:left)
+      # end
     end
   end
 
@@ -208,10 +210,10 @@ defmodule Day18 do
   def closest_right_int(ranger) do
     cond do
       is_integer(ranger.current) ->
-        ForestRanger.up(ranger)
+        {:left, ForestRanger.up(ranger)}
 
-      # is_integer(ranger.current.right) ->
-      # {:right, {:ok, ranger}}
+      is_integer(ranger.current.right) ->
+        {:right, {:ok, ranger}}
 
       true ->
         closest_right_int(ForestRanger.down(ranger, :left))
@@ -232,10 +234,8 @@ defmodule Day18 do
   def reduce(tree) do
     tree
     |> try_explode()
-    |> IO.inspect(label: "exploded")
     |> moar?(tree)
     |> try_split()
-    |> IO.inspect(label: "split")
     |> moar?(tree)
   end
 

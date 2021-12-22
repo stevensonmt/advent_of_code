@@ -120,7 +120,7 @@ defmodule Day18Test do
 
     assert ranger.current.left == 6
 
-    update_nearest_left_int = Day18.update_nearest_left_int(ranger, 6) |> elem(1)
+    update_nearest_left_int = Day18.update_nearest_left_int(ranger, 6)
 
     assert update_nearest_left_int.current.left == 6
 
